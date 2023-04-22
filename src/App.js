@@ -1,6 +1,6 @@
 import Main from './Main'
 import Bar from './Bar'
-import './assets/css/style.min.css'
+import './assets/css/style.scss'
 
 function App() {
   return (
