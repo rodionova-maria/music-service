@@ -3,7 +3,7 @@ import Icons from '../assets/icons/sprite.svg'
 import Skeleton from './Skeleton'
 
 function PlaylistItem(props) {
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -19,7 +19,7 @@ function PlaylistItem(props) {
       <div className="playlist__track track">
         <div className="track__title">
           <div className="track__title-image">
-            {loading ? (
+            {isLoading ? (
               <Skeleton style={{ width: '51', height: '51' }} />
             ) : (
               <svg className="track__title-svg" alt="music">
@@ -28,7 +28,7 @@ function PlaylistItem(props) {
             )}
           </div>
           <div className="track__title-text">
-            {loading ? (
+            {isLoading ? (
               <Skeleton style={{ width: '100%', height: '19' }} />
             ) : (
               <a className="track__title-link" href="http://">
@@ -39,7 +39,7 @@ function PlaylistItem(props) {
           </div>
         </div>
         <div className="track__author">
-          {loading ? (
+          {isLoading ? (
             <Skeleton style={{ width: '100%', height: '19' }} />
           ) : (
             <a className="track__author-link" href="http://">
@@ -48,7 +48,7 @@ function PlaylistItem(props) {
           )}
         </div>
         <div className="track__album">
-          {loading ? (
+          {isLoading ? (
             <Skeleton style={{ width: '100%', height: '19' }} />
           ) : (
             <a className="track__album-link" href="http://">
@@ -57,7 +57,7 @@ function PlaylistItem(props) {
           )}
         </div>
         <div className="track__time">
-          {loading ? (
+          {isLoading ? (
             <Skeleton style={{ width: '61', height: '19' }} />
           ) : (
             <>

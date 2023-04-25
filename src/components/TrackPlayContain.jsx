@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Skeleton from './Skeleton'
 
 function TrackPlayContain() {
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -17,7 +17,7 @@ function TrackPlayContain() {
   return (
     <div className="track-play__contain">
       <div className="track-play__image">
-        {loading ? (
+        {isLoading ? (
           <Skeleton style={{ width: '51', height: '51' }} />
         ) : (
           <svg className="track-play__svg" alt="music">
@@ -26,7 +26,7 @@ function TrackPlayContain() {
         )}
       </div>
       <div className="track-play__author">
-        {loading ? (
+        {isLoading ? (
           <Skeleton style={{ width: '49', height: '15' }} />
         ) : (
           <a className="track-play__author-link" href="http://">
@@ -35,7 +35,7 @@ function TrackPlayContain() {
         )}
       </div>
       <div className="track-play__album">
-        {loading ? (
+        {isLoading ? (
           <Skeleton style={{ width: '49', height: '15' }} />
         ) : (
           <a className="track-play__album-link" href="http://">

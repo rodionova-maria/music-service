@@ -204,6 +204,27 @@ body {
     flex-direction: row;
     align-items: center;
     margin-bottom: 51px;
+
+    .filter__popup {
+      position: absolute;
+      width: 424px;
+      background: #313131;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 34px;
+      align-items: center;
+      padding: 34px;
+    }
+
+    .popup__text {
+      font-family: 'StratosSkyeng';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      cursor: pointer;
+    }
   }
 
   &__content {
@@ -715,5 +736,28 @@ body {
 
   &__progress-line {
     width: 109px;
+  }
+}
+
+.dropdawn {
+  &-menu {
+    position: absolute;
+    width: 424px;
+    background: #313131;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 34px;
+    align-items: center;
+    padding: 34px;
+  }
+
+  &-item {
+    font-family: 'StratosSkyeng';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
   }
 }
