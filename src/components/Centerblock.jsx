@@ -1,7 +1,7 @@
 import Search from './Search'
 import Filter from './Filter'
 import Playlist from './Playlist'
-import Icons from './assets/icons/sprite.svg'
+import Icons from '../assets/icons/sprite.svg'
 
 function Centerblock() {
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ContentLoader from 'react-content-loader'
+import Skeleton from './Skeleton'
 
 function SidebarItem(props) {
   const [loading, setLoading] = useState(true)
@@ -16,9 +16,7 @@ function SidebarItem(props) {
   return (
     <div className="sidebar__item">
       {loading ? (
-        <ContentLoader backgroundColor="#313131" foregroundColor="#333">
-          <rect x="0" y="0" width="250" height="150" />
-        </ContentLoader>
+        <Skeleton style={{ width: '250', height: '150' }} />
       ) : (
         <a className="sidebar__link" href={props.link}>
           <img className="sidebar__img" src={props.imgSrc} alt={props.imgAlt} />
