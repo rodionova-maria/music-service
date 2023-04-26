@@ -30,8 +30,7 @@ ul li {
 // ========== fonts ========
 @font-face {
   font-family: 'Stratos';
-  src: url('../fonts/Stratos-Regular.woff2') format('woff2'),
-    url('../fonts/Stratos-Regular.woff') format('woff');
+  src: url('../fonts/Stratos-Regular.woff2') format('woff2'), url('../fonts/Stratos-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -739,7 +738,13 @@ body {
   }
 }
 
-.dropdawn {
+._btn-text_active {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+
+.dropdown {
   &-menu {
     position: absolute;
     width: 424px;
@@ -753,11 +758,13 @@ body {
   }
 
   &-item {
-    font-family: 'StratosSkyeng';
-    font-style: normal;
-    font-weight: 400;
     font-size: 20px;
     line-height: 24px;
     cursor: pointer;
+
+    &:hover {
+      color: #b672ff;
+      text-decoration: underline;
+    }
   }
 }
