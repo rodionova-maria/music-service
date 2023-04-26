@@ -18,6 +18,7 @@ function Filter() {
 
     const popupTop = `${bottom}px`
     const popupLeft = `${left}px`
+
     return { top: popupTop, left: popupLeft }
   }
 
@@ -33,10 +34,10 @@ function Filter() {
     setPopupVisible((prevState) => selectedType !== filterBy || !prevState)
   }
 
-  const setActiveButton = (filterType) => (isPopupVisible && filterBy === filterType ? ' _btn-text_active' : '')
+  const setButtonActive = (filterType) => (isPopupVisible && filterBy === filterType ? ' _btn-text_active' : '')
 
   const filterButtons = FILTER_LIST.map(({ type, text }) => (
-    <div className={`filter__button button-${type} _btn-text ${setActiveButton(type)}`} key={type} data-type={type}>
+    <div className={`filter__button button-${type} _btn-text ${setButtonActive(type)}`} key={type} data-type={type}>
       {text}
     </div>
   ))

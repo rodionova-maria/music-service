@@ -32,7 +32,7 @@ function FilterPopup({ isPopupVisible, filterBy, coords }) {
   }
 
   return isPopupVisible ? (
-    <div className="dropdown-menu" style={{ ...coords }}>
+    <div className="dropdown-menu" style={coords}>
       {list}
     </div>
   ) : null
