@@ -747,14 +747,16 @@ body {
 .dropdown {
   &-menu {
     position: absolute;
-    width: 424px;
+    width: 248px;
     background: #313131;
     border-radius: 12px;
     display: flex;
     flex-wrap: wrap;
-    gap: 34px;
-    align-items: center;
+    flex-direction: column;
+    gap: 28px;
     padding: 34px;
+    max-height: 305px;
+    overflow: auto;
   }
 
   &-item {

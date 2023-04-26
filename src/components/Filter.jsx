@@ -10,7 +10,7 @@ const FILTER_LIST = [
 function Filter() {
   const [isPopupVisible, setPopupVisible] = useState(false)
   const [filterBy, setFilterBy] = useState()
-  const [popupCoords, setPopupCoords] = useState({ top: 0, left: 0 })
+  const [popupCoords, setPopupCoords] = useState({})
 
   const getPopupCoords = (element) => {
     const left = element.offsetLeft
@@ -24,16 +24,19 @@ function Filter() {
   const handleFilterClick = (event) => {
     const { target } = event
     if (!target.classList.contains('filter__button')) return
+
     setPopupCoords(getPopupCoords(target))
-    const filterType = target.dataset.type
-    setFilterBy(filterType)
-    setPopupVisible((prevState) => filterType !== filterBy || !prevState)
+
+    const selectedType = target.dataset.type
+
+    setFilterBy(selectedType)
+    setPopupVisible((prevState) => selectedType !== filterBy || !prevState)
   }
 
-  const setActive = (filterType) => (isPopupVisible && filterBy === filterType ? ' _btn-text_active' : '')
+  const setActiveButton = (filterType) => (isPopupVisible && filterBy === filterType ? ' _btn-text_active' : '')
 
   const filterButtons = FILTER_LIST.map(({ type, text }) => (
-    <div className={`filter__button button-${type} _btn-text ${setActive(type)}`} key={type} data-type={type}>
+    <div className={`filter__button button-${type} _btn-text ${setActiveButton(type)}`} key={type} data-type={type}>
       {text}
     </div>
   ))
