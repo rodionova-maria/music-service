@@ -1,4 +1,4 @@
-import Icons from './assets/icons/sprite.svg'
+import Icons from '../assets/icons/sprite.svg'
 
 function PlayerControls() {
   return (

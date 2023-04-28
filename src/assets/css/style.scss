@@ -30,8 +30,7 @@ ul li {
 // ========== fonts ========
 @font-face {
   font-family: 'Stratos';
-  src: url('../fonts/Stratos-Regular.woff2') format('woff2'),
-    url('../fonts/Stratos-Regular.woff') format('woff');
+  src: url('../fonts/Stratos-Regular.woff2') format('woff2'), url('../fonts/Stratos-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -204,6 +203,27 @@ body {
     flex-direction: row;
     align-items: center;
     margin-bottom: 51px;
+
+    .filter__popup {
+      position: absolute;
+      width: 424px;
+      background: #313131;
+      border-radius: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 34px;
+      align-items: center;
+      padding: 34px;
+    }
+
+    .popup__text {
+      font-family: 'StratosSkyeng';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 24px;
+      cursor: pointer;
+    }
   }
 
   &__content {
@@ -379,8 +399,8 @@ body {
 
   &__author {
     width: 321px;
-    display: flex;
-    justify-content: flex-start;
+    // display: flex;
+    // justify-content: flex-start;
   }
 
   &__author-link {
@@ -715,5 +735,39 @@ body {
 
   &__progress-line {
     width: 109px;
+  }
+}
+
+._btn-text_active,
+._btn-text_active:hover {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+
+.dropdown {
+  &-menu {
+    position: absolute;
+    width: 248px;
+    background: #313131;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 28px;
+    padding: 34px;
+    max-height: 305px;
+    overflow: auto;
+  }
+
+  &-item {
+    font-size: 20px;
+    line-height: 24px;
+    cursor: pointer;
+
+    &:hover {
+      color: #b672ff;
+      text-decoration: underline;
+    }
   }
 }

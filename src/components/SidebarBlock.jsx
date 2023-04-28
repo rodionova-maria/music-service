@@ -1,7 +1,7 @@
 import SidebarItem from './SidebarItem'
-import playlist01 from './assets/images/playlist01.png'
-import playlist02 from './assets/images/playlist02.png'
-import playlist03 from './assets/images/playlist03.png'
+import playlist01 from '../assets/images/playlist01.png'
+import playlist02 from '../assets/images/playlist02.png'
+import playlist03 from '../assets/images/playlist03.png'
 
 function SidebarBlock() {
   return (

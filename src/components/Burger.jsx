@@ -1,6 +1,6 @@
-function Burger() {
+function Burger({ onClick }) {
   return (
-    <div className="nav__burger burger">
+    <div onClick={onClick} className="nav__burger burger">
       <span className="burger__line"></span>
       <span className="burger__line"></span>
       <span className="burger__line"></span>
