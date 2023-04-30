@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import FilterButton from '../FilterButton/FilterButton'
 import FilterPopup from '../FilterPopup/FilterPopup'
 import s from './Filter.module.scss'
 
@@ -9,48 +10,39 @@ const FILTER_LIST = [
 ]
 
 function Filter() {
-  const [isPopupVisible, setPopupVisible] = useState(false)
   const [filterBy, setFilterBy] = useState()
-  const [popupCoords, setPopupCoords] = useState({})
 
-  const getPopupCoords = (element) => {
-    const left = element.offsetLeft
-    const bottom = element.offsetTop + element.offsetHeight + 10
-
-    const popupTop = `${bottom}px`
-    const popupLeft = `${left}px`
-
-    return { top: popupTop, left: popupLeft }
+  const handleFilterClick = (type) => {
+    if (filterBy === type) {
+      setFilterBy()
+    } else {
+      setFilterBy(type)
+    }
   }
 
-  const handleFilterClick = (event) => {
-    const { target } = event
-    if (!target.classList.contains(`${s.filter__button}`)) return
-
-    setPopupCoords(getPopupCoords(target))
-
-    const selectedType = target.dataset.type
-
-    setFilterBy(selectedType)
-    setPopupVisible((prevState) => selectedType !== filterBy || !prevState)
+  const checkIsActive = (type) => {
+    return filterBy === type
   }
-
-  const setButtonActive = (filterType) => (isPopupVisible && filterBy === filterType ? ' _btn-text_active' : '')
 
   const filterButtons = FILTER_LIST.map(({ type, text }) => (
-    <div className={`${s.filter__button} button-${type} _btn-text ${setButtonActive(type)}`} key={type} data-type={type}>
-      {text}
+    <div className={s['filter__button-wrapper']} key={type}>
+      <FilterButton
+        type={type}
+        text={text}
+        isActive={checkIsActive(type)}
+        onClick={() => {
+          handleFilterClick(type)
+        }}
+      />
+      {checkIsActive(type) && <FilterPopup type={type} />}
     </div>
   ))
 
   return (
-    <>
-      <div className={`${s.centerblock__filter} filter`} onClick={handleFilterClick}>
-        <div className={s.filter__title}>Искать по:</div>
-        {filterButtons}
-      </div>
-      <FilterPopup isPopupVisible={isPopupVisible} filterBy={filterBy} coords={popupCoords} />
-    </>
+    <div className={`${s.centerblock__filter} filter`}>
+      <div className={s.filter__title}>Искать по:</div>
+      {filterButtons}
+    </div>
   )
 }
 

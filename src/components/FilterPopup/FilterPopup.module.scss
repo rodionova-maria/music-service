@@ -1,6 +1,8 @@
 .dropdown {
-  &-menu {
+  &__menu {
     position: absolute;
+    left: 0;
+    top: 100%;
     width: 248px;
     background: #313131;
     border-radius: 12px;
@@ -11,9 +13,11 @@
     padding: 34px;
     max-height: 305px;
     overflow: auto;
+    z-index: 1;
+    margin-top: 10px;
   }
 
-  &-item {
+  &__item {
     font-size: 20px;
     line-height: 24px;
     cursor: pointer;
