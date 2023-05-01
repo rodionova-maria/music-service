@@ -1,11 +1,12 @@
-import Main from './Main'
-import Bar from './Bar'
+import Main from './Main/Main'
+import Bar from './Bar/Bar'
 import '../assets/css/style.scss'
+import s from './App.module.scss'
 
 function App() {
   return (
-    <div className="wrapper">
-      <div className="container">
+    <div className={s.wrapper}>
+      <div className={s.container}>
         <Main />
         <Bar />
         <footer className="footer"></footer>
