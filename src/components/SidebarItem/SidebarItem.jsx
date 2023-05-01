@@ -17,7 +17,7 @@ function SidebarItem(props) {
   return (
     <div className={s.sidebar__item}>
       {isLoading ? (
-        <Skeleton style={{ width: '250', height: '150' }} />
+        <Skeleton style={{ width: '250px', height: '150px' }} />
       ) : (
         <a className={s.sidebar__link} href={props.link}>
           <img className={s.sidebar__img} src={props.imgSrc} alt={props.imgAlt} />

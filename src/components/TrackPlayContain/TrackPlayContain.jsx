@@ -19,7 +19,7 @@ function TrackPlayContain() {
     <div className={s['track-play__contain']}>
       <div className={s['track-play__image']}>
         {isLoading ? (
-          <Skeleton style={{ width: '51', height: '51' }} />
+          <Skeleton style={{ width: '51px', height: '51px' }} />
         ) : (
           <svg className={s['track-play__svg']} alt="music">
             <use xlinkHref={`${icons}#icon-note`} />
@@ -28,7 +28,7 @@ function TrackPlayContain() {
       </div>
       <div className={s['track-play__author']}>
         {isLoading ? (
-          <Skeleton style={{ width: '49', height: '15' }} />
+          <Skeleton style={{ width: '49px', height: '15px' }} />
         ) : (
           <a className={s['track-play__author-link']} href="http://">
             Ты та...
@@ -37,7 +37,7 @@ function TrackPlayContain() {
       </div>
       <div className={s['track-play__album']}>
         {isLoading ? (
-          <Skeleton style={{ width: '49', height: '15' }} />
+          <Skeleton style={{ width: '49px', height: '15px' }} />
         ) : (
           <a className={s['track-play__album-link']} href="http://">
             Баста
