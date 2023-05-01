@@ -20,7 +20,7 @@ function PlaylistTrack(props) {
       <div className={s.track__title}>
         <div className={s['track__title-image']}>
           {isLoading ? (
-            <Skeleton style={{ width: '51', height: '51' }} />
+            <Skeleton style={{ width: '51px', height: '51px' }} />
           ) : (
             <svg className={s['track__title-svg']} alt="music">
               <use xlinkHref={`${icons}#icon-note`} />
@@ -29,7 +29,7 @@ function PlaylistTrack(props) {
         </div>
         <div className={s['track__title-text']}>
           {isLoading ? (
-            <Skeleton style={{ width: '100%', height: '19' }} />
+            <Skeleton style={{ width: '100%', height: '19px' }} />
           ) : (
             <a className={s['track__title-link']} href="http://">
               {props.title}
@@ -40,7 +40,7 @@ function PlaylistTrack(props) {
       </div>
       <div className={s.track__author}>
         {isLoading ? (
-          <Skeleton style={{ width: '100%', height: '19' }} />
+          <Skeleton style={{ width: '100%', height: '19px' }} />
         ) : (
           <a className={s['track__author-link']} href="http://">
             {props.author}
@@ -49,7 +49,7 @@ function PlaylistTrack(props) {
       </div>
       <div className={s.track__album}>
         {isLoading ? (
-          <Skeleton style={{ width: '100%', height: '19' }} />
+          <Skeleton style={{ width: '100%', height: '19px' }} />
         ) : (
           <a className={s['track__album-link']} href="http://">
             {props.album}
@@ -58,7 +58,7 @@ function PlaylistTrack(props) {
       </div>
       <div className={s.track__time}>
         {isLoading ? (
-          <Skeleton style={{ width: '61', height: '19' }} />
+          <Skeleton style={{ width: '61px', height: '19px' }} />
         ) : (
           <>
             <svg className={s['track__time-svg']} alt="time">
