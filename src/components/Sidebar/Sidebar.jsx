@@ -2,11 +2,11 @@ import SidebarPersonal from '../SidebarPersonal/SidebarPersonal'
 import SidebarBlock from '../SidebarBlock/SidebarBlock'
 import s from './Sidebar.module.scss'
 
-function Sidebar() {
+function Sidebar({ isMain }) {
   return (
     <div className={`${s.main__sidebar} sidebar`}>
       <SidebarPersonal />
-      <SidebarBlock />
+      {isMain && <SidebarBlock />}
     </div>
   )
 }

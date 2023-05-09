@@ -8,9 +8,9 @@ function SidebarBlock() {
   return (
     <div className={s.sidebar__block}>
       <div className={s.sidebar__list}>
-        <SidebarItem link="#" imgSrc={playlist01} imgAlt="day's playlist" />
-        <SidebarItem link="#" imgSrc={playlist02} imgAlt="day's playlist" />
-        <SidebarItem link="#" imgSrc={playlist03} imgAlt="day's playlist" />
+        <SidebarItem link="/playlist/1" imgSrc={playlist01} imgAlt="Плейлист дня" />
+        <SidebarItem link="/playlist/2" imgSrc={playlist02} imgAlt="100 танцевальных хитов" />
+        <SidebarItem link="/playlist/3" imgSrc={playlist03} imgAlt="Инди-заряд" />
       </div>
     </div>
   )

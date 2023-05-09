@@ -1,0 +1,34 @@
+.popup {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    padding: 43px 41px 47px;
+    width: 366px;
+    background: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__logo {
+    margin-bottom: 34px;
+    align-self: center;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  &__buttons {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
