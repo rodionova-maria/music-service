@@ -13,7 +13,7 @@ export const AppRoutes = ({ user, setUser }) => {
       <Route path="/login" element={<LoginPage setUser={setUser} user={user} />} />
       <Route path="/registration" element={<RegistrationPage />} />
 
-      <Route element={<ProtectedRoute isAllowed={Boolean(user.user)} />}>
+      <Route element={<ProtectedRoute isAllowed={Boolean(user.Login)} />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/favourites" element={<FavouritesPage />} />
         <Route path="/playlist/:id" element={<PlaylistPage />} />

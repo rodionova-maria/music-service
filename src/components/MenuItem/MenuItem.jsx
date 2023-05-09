@@ -4,7 +4,7 @@ import s from './MenuItem.module.scss'
 function MenuItem(props) {
   return (
     <li className={s.menu__item}>
-      <Link to={props.link} className={s.menu__link} onClick={props.onClick}>
+      <Link to={props.link} className={s.menu__link}>
         {props.text}
       </Link>
     </li>

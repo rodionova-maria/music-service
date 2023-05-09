@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 function LoginPage({ user, setUser }) {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
-  
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function LoginPage({ user, setUser }) {
     event.preventDefault()
     console.log(login, password)
     // setUser({ login: username, password: password })
-    setUser('user', login, {
+    setUser('Name', login, {
       path: '/',
     })
     navigate('/', { replace: true })
