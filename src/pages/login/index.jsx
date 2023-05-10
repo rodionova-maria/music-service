@@ -18,7 +18,7 @@ function LoginPage({ user, setUser }) {
       navigate('/')
       return
     }
-  })
+  }, [])
 
   const handleLoginChange = (event) => {
     setLogin(event.target.value)
