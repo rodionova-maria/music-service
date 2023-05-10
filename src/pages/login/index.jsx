@@ -13,8 +13,10 @@ function LoginPage({ user, setUser }) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user.user) {
+    if (user.login) {
+      console.log(user, password)
       navigate('/')
+      return
     }
   })
 
@@ -28,9 +30,8 @@ function LoginPage({ user, setUser }) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault()
-    console.log(login, password)
-    // setUser({ login: username, password: password })
-    setUser('Name', login, {
+    // console.log(login, password)
+    setUser('login', login, {
       path: '/',
     })
     navigate('/', { replace: true })
