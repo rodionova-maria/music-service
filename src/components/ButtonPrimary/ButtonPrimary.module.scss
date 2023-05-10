@@ -1,0 +1,19 @@
+.button-primary {
+  background-color: #580ea2;
+  border-radius: 6px;
+  border: 0;
+  padding: 10px;
+  height: 52px;
+  font-family: 'Stratos', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff;
+
+  &:hover {
+    background-color: #3f007d;
+  }
+
+  &:active {
+    border-color: #271a58;
+  }
+}
