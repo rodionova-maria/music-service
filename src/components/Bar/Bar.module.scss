@@ -4,18 +4,10 @@
   left: 0;
   width: 100%;
   background: rgba(28, 28, 28, 0.5);
-}
 
-.bar {
   &__content {
     display: flex;
     flex-direction: column;
-  }
-
-  &__player-progress {
-    width: 100%;
-    height: 5px;
-    background: #2e2e2e;
   }
 
   &__player-block {
@@ -24,4 +16,8 @@
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+.audio_hidden {
+  display: none;
 }

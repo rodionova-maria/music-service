@@ -7,6 +7,7 @@
 
   &__btn-prev,
   &__btn-play,
+  &__btn-stop,
   &__btn-next,
   &__btn-repeat,
   &__btn-shuffle {
@@ -24,14 +25,20 @@
     height: 14px;
   }
 
-  &__btn-play {
+  &__btn-play,
+  &__btn-stop {
     margin-right: 23px;
   }
 
-  &__btn-play-svg {
+  &__btn-play-svg,
+  &__btn-stop-svg {
     width: 22px;
     height: 20px;
     fill: #d9d9d9;
+
+    &:hover {
+      fill: #696969;
+    }
   }
 
   &__btn-next {
