@@ -7,24 +7,26 @@ function ProgressBar({ audioRef, progressBarRef, duration }) {
   const [timeProgress, setTimeProgress] = useState(0)
 
   useEffect(() => {
-    setInterval(() => {
+    const t = setInterval(() => {
       updateWidth()
     }, 300)
+    return () => {
+      clearInterval(t)
+    }
   })
 
   function updateWidth() {
-    if (!audioRef.current.ended) {
-      setTimeProgress(audioRef.current.currentTime)
-      progressBarRef.current.value = timeProgress
-      progressBarRef.current.style.setProperty('--range-progress', `${(timeProgress / duration) * 100}%`)
-    }
+    setTimeProgress(audioRef.current.currentTime)
+    progressBarRef.current.value = timeProgress || 0
+    progressBarRef.current.style.setProperty('--range-progress', `${(timeProgress / duration) * 100}%`)
   }
 
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value
+    updateWidth()
   }
 
-  return <input type="range" defaultValue="0" className={s['bar__player-progress']} ref={progressBarRef} onChange={handleProgressChange} />
+  return <input type="range" defaultValue={timeProgress} className={s['bar__player-progress']} ref={progressBarRef} onChange={handleProgressChange} />
 }
 
 export default ProgressBar
