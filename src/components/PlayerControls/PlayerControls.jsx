@@ -1,7 +1,40 @@
 import s from './PlayerControls.module.scss'
 import icons from '../../assets/icons/sprite.svg'
+import { useState } from 'react'
 
-function PlayerControls() {
+function PlayerControls({ audioRef }) {
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const handleStart = () => {
+    audioRef.current.play()
+    setIsPlaying(true)
+  }
+
+  const handleStop = () => {
+    audioRef.current.pause()
+    setIsPlaying(false)
+  }
+
+  //   const togglePlay = isPlaying ? handleStop : handleStart
+
+  const btnPlay = (
+    <div className={`${s['player__btn-play']} _btn`} onClick={handleStart}>
+      <svg className={s['player__btn-play-svg']} alt="play">
+        <use xlinkHref={`${icons}#icon-play`} />
+      </svg>
+    </div>
+  )
+
+  const btnStop = (
+    <div className={`${s['player__btn-stop']} _btn`} onClick={handleStop}>
+      <svg className={s['player__btn-stop-svg']} alt="stop">
+        <use xlinkHref={`${icons}#icon-stop`} />
+      </svg>
+    </div>
+  )
+
+  const btnPlayToggle = isPlaying ? btnStop : btnPlay
+
   return (
     <div className={s.player__controls}>
       <div className={s['player__btn-prev']}>
@@ -9,11 +42,7 @@ function PlayerControls() {
           <use xlinkHref={`${icons}#icon-prev`} />
         </svg>
       </div>
-      <div className={`${s['player__btn-play']} _btn`}>
-        <svg className={s['player__btn-play-svg']} alt="play">
-          <use xlinkHref={`${icons}#icon-play`} />
-        </svg>
-      </div>
+      {btnPlayToggle}
       <div className={s['player__btn-next']}>
         <svg className={s['player__btn-next-svg']} alt="next">
           <use xlinkHref={`${icons}#icon-next`} />
