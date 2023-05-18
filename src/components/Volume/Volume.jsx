@@ -6,7 +6,7 @@ function Volume() {
     <div className={`${s['bar__volume-block']} volume`}>
       <div className={s.volume__content}>
         <div className={s.volume__image}>
-          <svg className={s.volume__svg} alt="volume">
+          <svg className={`${s.volume__svg} _btn-icon`} alt="volume">
             <use xlinkHref={`${icons}#icon-volume`} />
           </svg>
         </div>

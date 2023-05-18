@@ -16,15 +16,15 @@
   }
 
   &__image {
-    width: 13px;
+    width: 14px;
     height: 18px;
     margin-right: 17px;
   }
 
   &__svg {
-    width: 13px;
+    width: 14px;
     height: 18px;
-    fill: transparent;
+    fill: var(--color-player-btn);
   }
 
   &__progress {

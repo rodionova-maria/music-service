@@ -23,6 +23,11 @@
   &__btn-prev-svg {
     width: 15px;
     height: 14px;
+    fill: var(--color-player-btn);
+
+    &:hover {
+      fill: #707070;
+    }
   }
 
   &__btn-play,
@@ -34,23 +39,26 @@
   &__btn-stop-svg {
     width: 22px;
     height: 20px;
-    fill: #d9d9d9;
+    fill: var(--color-player-btn);
 
     &:hover {
-      fill: #696969;
+      fill: #707070;
     }
   }
 
   &__btn-next {
     margin-right: 28px;
-    fill: #a53939;
+    fill: var(--color-player-btn);
   }
 
   &__btn-next-svg {
     width: 15px;
     height: 14px;
-    fill: inherit;
-    stroke: #d9d9d9;
+    fill: var(--color-player-btn);
+
+    &:hover {
+      fill: #707070;
+    }
   }
 
   &__btn-repeat {
@@ -58,10 +66,9 @@
   }
 
   &__btn-repeat-svg {
-    width: 18px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
+    width: 20px;
+    height: 18px;
+    fill: var(--color-player-btn);
   }
 
   &__btn-shuffle {
@@ -70,9 +77,8 @@
   }
 
   &__btn-shuffle-svg {
-    width: 19px;
-    height: 12px;
-    fill: transparent;
-    stroke: #696969;
+    width: 20px;
+    height: 18px;
+    fill: var(--color-player-btn);
   }
 }

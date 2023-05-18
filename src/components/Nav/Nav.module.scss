@@ -1,7 +1,7 @@
 .main {
   &__nav {
     width: 244px;
-    background-color: #181818;
+    background-color: var(--bg-sidebar);
     padding: 20px 0 20px 36px;
   }
 }

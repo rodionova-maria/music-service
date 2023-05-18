@@ -1,3 +1,31 @@
+[data-theme='dark'] {
+  --color-basic-text: #fff;
+  --color-gray-text: #4e4e4e;
+  --bg-page-container: #181818;
+  --bg-sidebar: #181818;
+  --bg-gray: #313131;
+  --bg-burger-line: #d3d3d3;
+  --border-input-search: #4e4e4e;
+  --bg-bar: rgba(28, 28, 28, 0.8);
+  --color-player-btn: #d9d9d9;
+  --bg-progress-line: #2e2e2e;
+  --bg-progress-thumb: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme='light'] {
+  --color-basic-text: #000;
+  --color-gray-text: #b1b1b1;
+  --bg-page-container: #fff;
+  --bg-sidebar: #f6f5f3;
+  --bg-gray: #f6f4f4;
+  --bg-burger-line: #000;
+  --border-input-search: #d9d9d9;
+  --bg-bar: rgba(255, 255, 255, 1);
+  --color-player-btn: #b1b1b1;
+  --bg-progress-line: #d9d9d9;
+  --bg-progress-thumb: rgba(0, 0, 0, 0.07);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -43,7 +71,7 @@ body {
   width: 100%;
   height: 100%;
   font-family: 'Stratos', sans-serif;
-  color: #ffffff;
+  color: var(--color-basic-text);
 }
 
 // ========== hover ========
@@ -54,8 +82,7 @@ body {
 }
 
 ._btn-icon:hover svg {
-  fill: transparent;
-  stroke: #acacac;
+  fill: #707070;
   cursor: pointer;
 }
 
@@ -67,8 +94,7 @@ body {
 }
 
 ._btn-icon:active svg {
-  fill: transparent;
-  stroke: #ffffff;
+  fill: var(--color-basic-text);
   cursor: pointer;
 }
 

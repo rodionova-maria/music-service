@@ -1,10 +1,15 @@
 import s from './Logo.module.scss'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.svg'
+import { useThemeContext } from '../../contexts/theme'
 
-function Logo() {
+const Logo = () => {
+  const { currentTheme } = useThemeContext()
+
   return (
     <div className={`${s.nav__logo} logo`}>
-      <img className={s.logo__image} src={logo} alt="logo" />
+      <svg className={s.logo__image}>
+        <use xlinkHref={`${logo}#theme-${currentTheme === 'light' ? 'light' : 'dark'}`} />
+      </svg>
     </div>
   )
 }
