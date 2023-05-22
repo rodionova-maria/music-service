@@ -48,7 +48,7 @@ function PlayerControls({ audioRef }) {
           <use xlinkHref={`${icons}#icon-next`} />
         </svg>
       </div>
-      <div className={`{${s['player__btn-repeat']} _btn-icon`}>
+      <div className={`${s['player__btn-repeat']} _btn-icon`}>
         <svg className={s['player__btn-repeat-svg']} alt="repeat">
           <use xlinkHref={`${icons}#icon-repeat`} />
         </svg>
