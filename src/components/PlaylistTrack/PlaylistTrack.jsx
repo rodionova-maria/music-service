@@ -3,8 +3,10 @@ import Skeleton from '../Skeleton/Skeleton'
 import s from './PlaylistTrack.module.scss'
 import icons from '../../assets/icons/sprite.svg'
 
-function PlaylistTrack(props) {
+function PlaylistTrack({ track }) {
   const [isLoading, setLoading] = useState(true)
+
+  const { name, author, album, duration_in_seconds } = track
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -32,8 +34,7 @@ function PlaylistTrack(props) {
             <Skeleton style={{ width: '100%', height: '19px' }} />
           ) : (
             <a className={s['track__title-link']} href="http://">
-              {props.title}
-              <span className={s['track__title-span']}>{props.titleSpan}</span>
+              {name}
             </a>
           )}
         </div>
@@ -43,7 +44,7 @@ function PlaylistTrack(props) {
           <Skeleton style={{ width: '100%', height: '19px' }} />
         ) : (
           <a className={s['track__author-link']} href="http://">
-            {props.author}
+            {author}
           </a>
         )}
       </div>
@@ -52,7 +53,7 @@ function PlaylistTrack(props) {
           <Skeleton style={{ width: '100%', height: '19px' }} />
         ) : (
           <a className={s['track__album-link']} href="http://">
-            {props.album}
+            {album}
           </a>
         )}
       </div>
@@ -64,7 +65,7 @@ function PlaylistTrack(props) {
             <svg className={s['track__time-svg']} alt="time">
               <use xlinkHref={`${icons}#icon-like`} />
             </svg>
-            <span className={s['track__time-text']}>{props.time}</span>
+            <span className={s['track__time-text']}>{duration_in_seconds}</span>
           </>
         )}
       </div>
