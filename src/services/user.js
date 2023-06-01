@@ -21,7 +21,21 @@ export const userApi = createApi({
         body,
       }),
     }),
+    getToken: builder.mutation({
+      query: (body) => ({
+        url: '/user/token/',
+        method: 'POST',
+        body,
+      }),
+    }),
+    tokenRefresh: builder.mutation({
+      query: (body) => ({
+        url: '/user/token/',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useLoginMutation, useSignupMutation } = userApi
+export const { useLoginMutation, useSignupMutation, useGetTokenMutation, useTokenRefreshMutation } = userApi

@@ -1,59 +1,83 @@
 import { useNavigate } from 'react-router-dom'
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary'
-import ButtonTransparent from '../../components/ButtonTransparent/ButtonTransparent'
-import FormInput from '../../components/FormInput/FormInput'
 import logo from '../../assets/images/logo-black.png'
 import s from './login.module.scss'
-import { useEffect, useState } from 'react'
+import { useGetTokenMutation, useLoginMutation, useTokenRefreshMutation } from '../../services/user'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { setLogin } from '../../store/slices/user'
+import { useEffect } from 'react'
 
-function LoginPage({ user, setUser }) {
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
-
+function LoginPage() {
+  // function LoginPage({ user, setUser }) {
   const navigate = useNavigate()
+  const { register, handleSubmit } = useForm()
+  const [login] = useLoginMutation()
+  const [getToken] = useGetTokenMutation()
+  const [tokenRefresh] = useTokenRefreshMutation()
+  const dispatch = useDispatch()
+
+  // const [login, setLogin] = useState('')
+  // const [password, setPassword] = useState('')
 
   useEffect(() => {
-    if (user.login) {
-      console.log(user, password)
-      navigate('/')
-      return
+    const refresh = localStorage.getItem('refresh')
+    if (!refresh) return
+
+    const changeToken = async () => {
+      try {
+        const responseRefresh = await tokenRefresh(refresh)
+        console.log(responseRefresh)
+        dispatch(changeToken({ ...responseRefresh.data }))
+        navigate('/')
+      } catch (error) {
+        // console.log(error?.detail)
+        localStorage.clear()
+      }
     }
+
+    changeToken()
+    // navigate('/')
   }, [])
 
-  const handleLoginChange = (event) => {
-    setLogin(event.target.value)
+  // event.preventDefault()
+  // setUser('login', login, {
+  //   path: '/',
+  // })
+  // navigate('/', { replace: true })
+  const onFormSubmit = async (fields) => {
+    // console.log(data)
+    try {
+      const responseLogin = await login({ ...fields })
+      const loginData = responseLogin.data
+      const responseToken = await getToken({ ...fields })
+      const tokenData = responseToken.data
+      dispatch(setLogin({ ...loginData, token: tokenData }))
+      localStorage.setItem('refresh', tokenData.refresh)
+    } catch (error) {
+      alert(error)
+    }
   }
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault()
-    // console.log(login, password)
-    setUser('login', login, {
-      path: '/',
-    })
-    navigate('/', { replace: true })
-  }
-
-  const handleRegistrationButtonClick = (event) => {
-    event.preventDefault()
-    navigate('/registration', { replace: true })
+  const handleRegistrationButtonClick = () => {
+    navigate('/registration')
   }
 
   return (
     <div className={s.popup}>
       <div className={s.popup__wrapper}>
         <img src={logo} className={s.popup__logo} alt="logo" />
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className={s.popup__fields}>
-            <FormInput type="text" placeholder="Логин" onChange={handleLoginChange} name="login" />
-            <FormInput type="password" placeholder="Пароль" onChange={handlePasswordChange} name="password" />
+            <input placeholder="Логин" type="text" required className={s.popup__input} {...register('email')} />
+            <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
           </div>
           <div className={s.popup__buttons}>
-            <ButtonPrimary value="Войти" />
-            <ButtonTransparent value="Зарегистрироваться" onClick={handleRegistrationButtonClick} />
+            <button type="submit" className={s['button-primary']}>
+              Войти
+            </button>
+            <button type="button" onClick={handleRegistrationButtonClick} className={s['button-transparent']}>
+              Зарегистрироваться
+            </button>
           </div>
         </form>
       </div>

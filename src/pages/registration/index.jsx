@@ -1,37 +1,28 @@
-import { useDispatch } from 'react-redux'
 import logo from '../../assets/images/logo-black.png'
 import s from './registration.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { setUser } from '../../slices/user'
 import { useSignupMutation } from '../../services/user'
+import { useState } from 'react'
 
 function RegistrationPage() {
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
   const [signup] = useSignupMutation()
-  const dispatch = useDispatch()
+  let [errorText, setErrorText] = useState('')
 
-  const navigate = useNavigate()
-
-  //   const handleRegistrationButtonClick = (event) => {
-  //     event.preventDefault()
-  //     navigate('/login', { replace: true })
-  //   }
-
-  const onFormSubmit = async (data) => {
-    console.log(data)
+  const onFormSubmit = async (fields) => {
+    if (fields.password !== fields.repeatPassword) {
+      errorText = 'Пароли не совпадают'
+      setErrorText(errorText)
+      return
+    }
+    // console.log(data)
     try {
-      signup(data).then((res) => {
-        console.log(res)
-        dispatch(
-          setUser({
-            username: res.username,
-          })
-        )
-      })
+      await signup({ ...fields, email: fields.username })
       navigate('/login')
     } catch (error) {
-      console.error('Registration failed:', error)
+      console.log(error)
     }
   }
 
@@ -42,8 +33,9 @@ function RegistrationPage() {
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className={s.popup__fields}>
             <input placeholder="Логин" type="text" required className={s.popup__input} {...register('username')} />
-            <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('pwd')} />
-            <input placeholder="Повторите пароль" type="password" required className={s.popup__input} {...register('repeat_pwd')} />
+            <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
+            <input placeholder="Повторите пароль" type="password" required className={s.popup__input} {...register('repeatPassword')} />
+            {errorText}
           </div>
           <div className={s.popup__buttons}>
             <button type="submit" className={s['button-primary']}>
