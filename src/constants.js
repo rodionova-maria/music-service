@@ -1,3 +1,5 @@
+export const BASE_URL = 'https://painassasin.online'
+
 export const COLLECTIONS = [
   {
     id: 1,
