@@ -25,13 +25,13 @@ const userSlice = createSlice({
       return {
         ...state,
         token: payload.token,
-        isAuthenticated: payload.isAuthenticated,
+        isAuthenticated: true,
       }
     },
   },
 })
 
-export const { logout, createUser, setLogin, changeToken } = userSlice.actions
+export const { setLogout, setLogin, changeToken } = userSlice.actions
 export default userSlice.reducer
 
 export const selectIsAuthenticated = (state) => state.isAuthenticated

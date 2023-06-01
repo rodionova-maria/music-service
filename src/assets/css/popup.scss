@@ -27,7 +27,6 @@
   }
 
   &__buttons {
-    margin-top: 60px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -46,6 +45,11 @@
     &::placeholder {
       color: #d0cece;
     }
+  }
+
+  &__info {
+    min-height: 60px;
+    color: red;
   }
 }
 

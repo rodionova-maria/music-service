@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { BASE_URL } from '../constants'
 
 export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://painassasin.online',
+    baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
     getAllTracks: builder.query({

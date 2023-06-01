@@ -8,23 +8,23 @@ import { useState } from 'react'
 function RegistrationPage() {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
-  const [signup] = useSignupMutation()
+  const [signup, { isSuccess, isError }] = useSignupMutation()
   let [errorText, setErrorText] = useState('')
 
   const onFormSubmit = async (fields) => {
+    setErrorText('')
     if (fields.password !== fields.repeatPassword) {
-      errorText = 'Пароли не совпадают'
-      setErrorText(errorText)
+      setErrorText('Пароль не совпадает.')
       return
     }
-    // console.log(data)
-    try {
-      await signup({ ...fields, email: fields.username })
-      navigate('/login')
-    } catch (error) {
-      console.log(error)
-    }
+    await signup({
+      username: fields.username,
+      password: fields.password,
+      email: fields.username,
+    })
   }
+
+  if (isSuccess) navigate('/login')
 
   return (
     <div className={s.popup}>
@@ -35,7 +35,10 @@ function RegistrationPage() {
             <input placeholder="Логин" type="text" required className={s.popup__input} {...register('username')} />
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
             <input placeholder="Повторите пароль" type="password" required className={s.popup__input} {...register('repeatPassword')} />
-            {errorText}
+            <div className={s.popup__info}>
+              {errorText}
+              {isError && <div>Ошибка данных формы.</div>}
+            </div>
           </div>
           <div className={s.popup__buttons}>
             <button type="submit" className={s['button-primary']}>

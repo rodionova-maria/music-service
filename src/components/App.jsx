@@ -1,5 +1,4 @@
 import { AppRoutes } from '../routes'
-import { useCookies } from 'react-cookie'
 import '../assets/css/style.scss'
 import s from './App.module.scss'
 import { ThemeContext, themes } from '../contexts/theme'
@@ -7,7 +6,6 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 
 function App() {
-  const [user, setCookie] = useCookies(['login'])
   const [currentTheme, setCurrentTheme] = useState(themes.dark)
 
   useEffect(() => {
@@ -27,7 +25,7 @@ function App() {
     <ThemeContext.Provider value={{ currentTheme, toggleTheme }}>
       <div className={s.wrapper}>
         <div className={s.container}>
-          <AppRoutes user={user} setUser={setCookie} />
+          <AppRoutes />
         </div>
       </div>
     </ThemeContext.Provider>
