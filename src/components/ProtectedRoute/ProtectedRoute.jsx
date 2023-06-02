@@ -1,13 +1,11 @@
-import { useDispatch } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
-import { getState } from '../../store/slices/user'
+import { selectIsAuthenticated } from '../../store/slices/user'
+import { useSelector } from 'react-redux'
 
 export const ProtectedRoute = ({ redirectPath = '/login' }) => {
-  const dispatch = useDispatch()
+  const isAuthenticated = useSelector(selectIsAuthenticated)
 
-  const isAllowed = dispatch(getState().payload.isAllowed)
-
-  if (!isAllowed) {
+  if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace={true} />
   }
 

@@ -19,13 +19,22 @@ function LoginPage() {
     const storageRefresh = localStorage.getItem('refresh')
     if (!storageRefresh) return
 
-    const changeToken = async (token) => {
-      const responseRefresh = await tokenRefresh({ refresh: token }).unwrap()
-      console.log(responseRefresh)
-      dispatch(changeToken({ ...responseRefresh.access }))
+    const getAccessToken = async (token) => {
+      const responseRefresh = await tokenRefresh({ refresh: token })
+      dispatch(
+        setLogin({
+          id: localStorage.getItem('userID'),
+          token: {
+            access: responseRefresh.data.access,
+            refresh: storageRefresh,
+          },
+        })
+      )
     }
 
-    changeToken(storageRefresh)
+    getAccessToken(storageRefresh)
+    console.log('-go')
+    navigate('/')
   }, [])
 
   const onFormSubmit = async (fields) => {
@@ -42,8 +51,6 @@ function LoginPage() {
     localStorage.setItem('refresh', tokenData.refresh)
   }
 
-  if (useTokenRefreshMutation().isSuccess) navigate('/')
-
   if (useTokenRefreshMutation().isError) {
     setLogout()
     localStorage.clear()
@@ -59,7 +66,7 @@ function LoginPage() {
         <img src={logo} className={s.popup__logo} alt="logo" />
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className={s.popup__fields}>
-            <input placeholder="Логин" type="text" required className={s.popup__input} {...register('email')} />
+            <input placeholder="Логин" type="text" required className={s.popup__input} {...register('email')} autoComplete="off" />
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
           </div>
           <div className={s.popup__info}>

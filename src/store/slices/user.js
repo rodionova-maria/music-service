@@ -15,24 +15,17 @@ const userSlice = createSlice({
     setLogin: (state, { payload }) => {
       return {
         ...state,
-        username: payload.username,
+        username: payload?.username,
         id: payload.id,
         token: payload.token,
         isAuthenticated: true,
       }
     },
-    changeToken: (state, { payload }) => {
-      return {
-        ...state,
-        token: payload.token,
-        isAuthenticated: true,
-      }
-    },
-    getState: (state) => ({ ...state }),
   },
 })
 
-export const { setLogout, setLogin, changeToken, getState } = userSlice.actions
+export const { setLogout, setLogin } = userSlice.actions
 export default userSlice.reducer
 
-export const selectIsAuthenticated = (state) => state.isAuthenticated
+// это хук
+export const selectIsAuthenticated = (state) => state.user.isAuthenticated
