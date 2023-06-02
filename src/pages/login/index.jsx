@@ -19,8 +19,8 @@ function LoginPage() {
     const storageRefresh = localStorage.getItem('refresh')
     if (!storageRefresh) return
 
-    const getAccessToken = async (token) => {
-      const responseRefresh = await tokenRefresh({ refresh: token })
+    const getAccessToken = async (string) => {
+      const responseRefresh = await tokenRefresh({ refresh: string })
       dispatch(
         setLogin({
           id: localStorage.getItem('userID'),
