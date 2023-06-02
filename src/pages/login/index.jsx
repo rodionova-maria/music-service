@@ -15,22 +15,22 @@ function LoginPage() {
   const [tokenRefresh] = useTokenRefreshMutation()
   const dispatch = useDispatch()
 
+  const getAccessToken = async (string) => {
+    const responseRefresh = await tokenRefresh({ refresh: string })
+    dispatch(
+      setLogin({
+        id: localStorage.getItem('userID'),
+        token: {
+          access: responseRefresh.data.access,
+          refresh: string,
+        },
+      })
+    )
+  }
+
   useEffect(() => {
     const storageRefresh = localStorage.getItem('refresh')
     if (!storageRefresh) return
-
-    const getAccessToken = async (string) => {
-      const responseRefresh = await tokenRefresh({ refresh: string })
-      dispatch(
-        setLogin({
-          id: localStorage.getItem('userID'),
-          token: {
-            access: responseRefresh.data.access,
-            refresh: storageRefresh,
-          },
-        })
-      )
-    }
 
     getAccessToken(storageRefresh)
     console.log('-go')
