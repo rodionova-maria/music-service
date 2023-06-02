@@ -6,7 +6,6 @@ import MainPage from './pages/main'
 import PlaylistPage from './pages/playlist'
 import FavouritesPage from './pages/favourites'
 import NotFoundPage from './pages/not-found'
-import { selectIsAuthenticated } from './store/slices/user'
 
 export const AppRoutes = () => {
   return (
@@ -14,7 +13,7 @@ export const AppRoutes = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/registration" element={<RegistrationPage />} />
 
-      <Route element={<ProtectedRoute isAllowed={selectIsAuthenticated()} />}>
+      <Route element={<ProtectedRoute />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/favourites" element={<FavouritesPage />} />
         <Route path="/playlist/:id" element={<PlaylistPage />} />

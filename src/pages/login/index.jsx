@@ -15,19 +15,22 @@ function LoginPage() {
   const [tokenRefresh] = useTokenRefreshMutation()
   const dispatch = useDispatch()
 
-  const changeToken = async (token) => {
-    const responseRefresh = await tokenRefresh(token)
-    dispatch(changeToken({ ...responseRefresh.data }))
-  }
-
   useEffect(() => {
-    const refresh = localStorage.getItem('refresh')
-    if (!refresh) return
-    changeToken({ token: refresh })
+    const storageRefresh = localStorage.getItem('refresh')
+    if (!storageRefresh) return
+
+    const changeToken = async (token) => {
+      const responseRefresh = await tokenRefresh({ refresh: token }).unwrap()
+      console.log(responseRefresh)
+      dispatch(changeToken({ ...responseRefresh.access }))
+    }
+
+    changeToken(storageRefresh)
   }, [])
 
   const onFormSubmit = async (fields) => {
     const responseLogin = await login({ ...fields })
+
     const loginData = responseLogin.data
 
     const responseToken = await getToken({ ...fields })

@@ -30,7 +30,7 @@ export const userApi = createApi({
     }),
     tokenRefresh: builder.mutation({
       query: (body) => ({
-        url: '/user/token/',
+        url: '/user/token/refresh/',
         method: 'POST',
         body,
       }),
