@@ -10,9 +10,9 @@ import { useEffect } from 'react'
 function LoginPage() {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
-  const [login] = useLoginMutation()
-  const [getToken] = useGetTokenMutation()
-  const [tokenRefresh] = useTokenRefreshMutation()
+  const [login, { isLoading: isLoadingLogin, isError: isErrorLogin }] = useLoginMutation()
+  const [getToken, { isError: isErrorGetToken }] = useGetTokenMutation()
+  const [tokenRefresh, { isErrorTokenRefresh }] = useTokenRefreshMutation()
   const dispatch = useDispatch()
 
   const getAccessToken = async (string) => {
@@ -26,15 +26,13 @@ function LoginPage() {
         },
       })
     )
+    navigate('/')
   }
 
   useEffect(() => {
     const storageRefresh = localStorage.getItem('refresh')
     if (!storageRefresh) return
-
     getAccessToken(storageRefresh)
-    console.log('-go')
-    navigate('/')
   }, [])
 
   const onFormSubmit = async (fields) => {
@@ -49,9 +47,10 @@ function LoginPage() {
 
     localStorage.setItem('userID', loginData.id)
     localStorage.setItem('refresh', tokenData.refresh)
+    navigate('/')
   }
 
-  if (useTokenRefreshMutation().isError) {
+  if (isErrorTokenRefresh) {
     setLogout()
     localStorage.clear()
   }
@@ -70,8 +69,9 @@ function LoginPage() {
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
           </div>
           <div className={s.popup__info}>
-            {useLoginMutation().isError && <div>Ошибка данных формы.</div>}
-            {useGetTokenMutation().isError && <div>Ошибка получения токена.</div>}
+            {isLoadingLogin && <div>Отправка данных...</div>}
+            {isErrorLogin && <div>Ошибка данных формы.</div>}
+            {isErrorGetToken && <div>Ошибка получения токена.</div>}
           </div>
           <div className={s.popup__buttons}>
             <button type="submit" className={s['button-primary']}>

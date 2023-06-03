@@ -35,10 +35,10 @@ function RegistrationPage() {
             <input placeholder="Логин" type="text" required className={s.popup__input} {...register('username')} />
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
             <input placeholder="Повторите пароль" type="password" required className={s.popup__input} {...register('repeatPassword')} />
-            <div className={s.popup__info}>
-              {errorText}
-              {isError && <div>Ошибка данных формы.</div>}
-            </div>
+          </div>
+          <div className={s.popup__info}>
+            {errorText}
+            {isError && <div>Ошибка данных формы.</div>}
           </div>
           <div className={s.popup__buttons}>
             <button type="submit" className={s['button-primary']}>
