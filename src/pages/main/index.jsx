@@ -7,12 +7,13 @@ import { useGetAllTracksQuery } from '../../services/catalog'
 
 function MainPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
+  const trackData = data
 
   return (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock isMain={true} data={data} error={error} isLoading={isLoading} />
+        <Centerblock isMain={true} data={trackData} error={error} isLoading={isLoading} />
         <Sidebar isMain={true} />
       </div>
       <Bar />

@@ -11,12 +11,13 @@ function PlaylistPage() {
   const params = useParams()
   const id = Number(params.id)
   const { data, error, isLoading } = useGetPlaylistByIDQuery(id)
+  const trackData = data
 
   return (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock data={data.items} error={error} isLoading={isLoading} />
+        <Centerblock data={trackData.items} error={error} isLoading={isLoading} />
         <Sidebar isMain={false} />
       </div>
       <Bar />
