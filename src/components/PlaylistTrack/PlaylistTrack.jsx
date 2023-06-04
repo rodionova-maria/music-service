@@ -2,11 +2,18 @@ import { useEffect, useState } from 'react'
 import Skeleton from '../Skeleton/Skeleton'
 import s from './PlaylistTrack.module.scss'
 import icons from '../../assets/icons/sprite.svg'
+import { useSetLikeMutation, useSetUnlikeMutation } from '../../services/catalog'
+import { useSelector } from 'react-redux'
+import { selectUserID } from '../../store/slices/user'
 
 function PlaylistTrack({ track }) {
+  const [setLike] = useSetLikeMutation()
+  const [setUnlike] = useSetUnlikeMutation()
+  const userID = useSelector(selectUserID)
   const [isLoading, setLoading] = useState(true)
+  const [isFavourite, setFavourite] = useState(null)
 
-  const { name, author, album, duration_in_seconds } = track
+  const { name, author, album, stared_user, duration_in_seconds } = track
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -16,6 +23,22 @@ function PlaylistTrack({ track }) {
       clearTimeout(t)
     }
   }, [])
+
+  useEffect(() => {
+    if (stared_user.some((user) => user.id === userID)) {
+      setFavourite(true)
+    } else setFavourite(false)
+  }, [stared_user, isFavourite])
+
+  const handleSetLike = async () => {
+    if (isFavourite) {
+      await setUnlike(track.id)
+      setFavourite(false)
+    } else {
+      await setLike(track.id)
+      setFavourite(true)
+    }
+  }
 
   return (
     <div className={`${s['playlist__track']} track`}>
@@ -62,8 +85,8 @@ function PlaylistTrack({ track }) {
           <Skeleton style={{ width: '61px', height: '19px' }} />
         ) : (
           <>
-            <svg className={s['track__time-svg']} alt="time">
-              <use xlinkHref={`${icons}#icon-like`} />
+            <svg className={s['track__time-svg']} alt="time" onClick={handleSetLike}>
+              <use xlinkHref={`${icons}#icon-${isFavourite ? 'like' : 'dislike'}`} />
             </svg>
             <span className={s['track__time-text']}>{duration_in_seconds}</span>
           </>

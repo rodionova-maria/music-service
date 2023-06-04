@@ -1,10 +1,7 @@
-import { useGetAllTracksQuery } from '../../services/catalog'
 import PlaylistTrack from '../PlaylistTrack/PlaylistTrack'
 import s from './Playlist.module.scss'
 
-function Playlist() {
-  const { data, error, isLoading } = useGetAllTracksQuery()
-
+function Playlist({ data, error, isLoading }) {
   const isEmptyList = !isLoading && !data?.length
 
   if (isLoading) {

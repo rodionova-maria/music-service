@@ -5,16 +5,18 @@ import s from './playlist.module.scss'
 import { useParams } from 'react-router-dom'
 import Centerblock from '../../components/Centerblock/Centerblock'
 import Sidebar from '../../components/Sidebar/Sidebar'
+import { useGetPlaylistByIDQuery } from '../../services/catalog'
 
 function PlaylistPage() {
   const params = useParams()
-  const playlistId = Number(params.id)
+  const id = Number(params.id)
+  const { data, error, isLoading } = useGetPlaylistByIDQuery(id)
 
   return (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock playlistId={playlistId} />
+        <Centerblock data={data.items} error={error} isLoading={isLoading} />
         <Sidebar isMain={false} />
       </div>
       <Bar />

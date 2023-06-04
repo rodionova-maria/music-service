@@ -69,7 +69,7 @@ function LoginPage() {
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
           </div>
           <div className={s.popup__info}>
-            {isLoadingLogin && <div>Отправка данных...</div>}
+            {isLoadingLogin && <div>Данные отправлены...</div>}
             {isErrorLogin && <div>Ошибка данных формы.</div>}
             {isErrorGetToken && <div>Ошибка получения токена.</div>}
           </div>
