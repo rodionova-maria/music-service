@@ -1,4 +1,3 @@
-// import CenterblockNotFilter from '../../components/CenterblockNotFilter/CenterblockNotFilter'
 import Nav from '../../components/Nav/Nav'
 import Bar from '../../components/Bar/Bar'
 import s from './playlist.module.scss'
@@ -11,14 +10,16 @@ function PlaylistPage() {
   const params = useParams()
   const id = Number(params.id)
   const { data, error, isLoading } = useGetPlaylistByIDQuery(id)
-  const trackData = data
+  const tracksData = data
 
-  return (
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock data={trackData.items} error={error} isLoading={isLoading} />
-        <Sidebar isMain={false} />
+        <Centerblock data={tracksData.items} error={error} isLoading={isLoading} />
+        <Sidebar />
       </div>
       <Bar />
       <footer className="footer"></footer>

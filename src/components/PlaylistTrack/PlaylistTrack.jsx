@@ -28,7 +28,7 @@ function PlaylistTrack({ track }) {
     if (stared_user.some((user) => user.id === userID)) {
       setFavourite(true)
     } else setFavourite(false)
-  }, [stared_user, isFavourite])
+  }, [isFavourite])
 
   const handleSetLike = async () => {
     if (isFavourite) {

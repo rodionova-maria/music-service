@@ -8,14 +8,14 @@ import { useGetAllTracksQuery } from '../../services/catalog'
 
 function FavouritesPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
-  const trackData = data
+  const tracksData = data
 
   return (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock data={trackData} error={error} isLoading={isLoading} />
-        <Sidebar isMain={false} />
+        <Centerblock data={tracksData} error={error} isLoading={isLoading} />
+        <Sidebar />
       </div>
       <Bar />
       <footer className="footer"></footer>

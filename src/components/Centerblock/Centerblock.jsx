@@ -6,6 +6,7 @@ import Playlist from '../Playlist/Playlist'
 import s from './Centerblock.module.scss'
 
 function Centerblock({ isMain, data, error, isLoading }) {
+  console.log('data', data)
   return (
     <div className={`${s.main__centerblock} centerblock`}>
       <Search />

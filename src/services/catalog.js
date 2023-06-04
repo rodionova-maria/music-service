@@ -10,7 +10,7 @@ export const catalogApi = createApi({
       const token = getState().user.token.access
       //   console.log(token)
       if (token) {
-        headers.set('authorization', `Bearer ${token}`)
+        headers.set('Authorization', `Bearer ${token}`)
       }
       return headers
     },
