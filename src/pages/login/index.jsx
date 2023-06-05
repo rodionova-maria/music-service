@@ -12,21 +12,30 @@ function LoginPage() {
   const { register, handleSubmit } = useForm()
   const [login, { isLoading: isLoadingLogin, isError: isErrorLogin }] = useLoginMutation()
   const [getToken, { isError: isErrorGetToken }] = useGetTokenMutation()
-  const [tokenRefresh, { isErrorTokenRefresh }] = useTokenRefreshMutation()
+  const [tokenRefresh] = useTokenRefreshMutation()
   const dispatch = useDispatch()
 
-  const getAccessToken = async (string) => {
-    const responseRefresh = await tokenRefresh({ refresh: string })
-    dispatch(
-      setLogin({
-        id: localStorage.getItem('userID'),
-        token: {
-          access: responseRefresh.data.access,
-          refresh: string,
-        },
+  const getAccessToken = (string) => {
+    tokenRefresh({ refresh: string })
+      .unwrap()
+      .then((data) => {
+        // console.log(data)
+        dispatch(
+          setLogin({
+            id: localStorage.getItem('userID'),
+            token: {
+              access: data.access,
+              refresh: string,
+            },
+          })
+        )
+        navigate('/')
       })
-    )
-    navigate('/')
+      .catch((error) => {
+        console.error(error.data.detail)
+        setLogout()
+        localStorage.clear()
+      })
   }
 
   useEffect(() => {
@@ -48,11 +57,6 @@ function LoginPage() {
     localStorage.setItem('userID', loginData.id)
     localStorage.setItem('refresh', tokenData.refresh)
     navigate('/')
-  }
-
-  if (isErrorTokenRefresh) {
-    setLogout()
-    localStorage.clear()
   }
 
   const handleRegistrationButtonClick = () => {

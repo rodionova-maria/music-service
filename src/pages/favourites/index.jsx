@@ -10,7 +10,9 @@ function FavouritesPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
   const tracksData = data
 
-  return (
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <div className={s.main}>
         <Nav />
