@@ -19,7 +19,6 @@ function LoginPage() {
     tokenRefresh({ refresh: string })
       .unwrap()
       .then((data) => {
-        // console.log(data)
         dispatch(
           setLogin({
             id: localStorage.getItem('userID'),
@@ -31,12 +30,33 @@ function LoginPage() {
         )
         navigate('/')
       })
-      .catch((error) => {
-        console.error(error.data.detail)
+      .catch((e) => {
         setLogout()
         localStorage.clear()
+        console.error(e.data.detail)
       })
   }
+
+  //   const getAccessToken = async (string) => {
+  //     try {
+  //       const result = await tokenRefresh({ refresh: string }).unwrap()
+  //       dispatch(
+  //         setLogin({
+  //           id: localStorage.getItem('userID'),
+  //           token: {
+  //             access: result.access,
+  //             refresh: string,
+  //           },
+  //         })
+  //       )
+  //       navigate('/')
+  //     } catch (e) {
+  //       console.error(e.data.detail)
+  //       console.log(errorTokenRefresh)
+  //       setLogout()
+  //       localStorage.clear()
+  //     }
+  //   }
 
   useEffect(() => {
     const storageRefresh = localStorage.getItem('refresh')

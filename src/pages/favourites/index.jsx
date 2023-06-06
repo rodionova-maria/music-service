@@ -5,10 +5,13 @@ import s from './favourites.module.scss'
 import Centerblock from '../../components/Centerblock/Centerblock'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { useGetAllTracksQuery } from '../../services/catalog'
+// import { useSelector } from 'react-redux'
+// import { selectUserID } from '../../store/slices/user'
 
 function FavouritesPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
-  const tracksData = data
+  //   const userID = useSelector(selectUserID)
+  const tracksData = [...data]
 
   return isLoading ? (
     <p>Loading...</p>

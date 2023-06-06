@@ -7,13 +7,13 @@ import { useSelector } from 'react-redux'
 import { selectUserID } from '../../store/slices/user'
 
 function PlaylistTrack({ track }) {
-  const [setLike] = useSetLikeMutation()
-  const [setUnlike] = useSetUnlikeMutation()
+  const [setLike, { isSuccess: isSuccessLike }] = useSetLikeMutation()
+  const [setUnlike, { isSuccess: isSuccessUnlike }] = useSetUnlikeMutation()
   const userID = useSelector(selectUserID)
   const [isLoading, setLoading] = useState(true)
-  const [isFavourite, setFavourite] = useState(null)
 
-  const { name, author, album, stared_user, duration_in_seconds } = track
+  const { id: trackID, name, author, album, stared_user, duration_in_seconds } = track
+  const [isFavourite, setFavourite] = useState(stared_user.some((user) => user.id === userID))
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -24,19 +24,29 @@ function PlaylistTrack({ track }) {
     }
   }, [])
 
-  useEffect(() => {
-    if (stared_user.some((user) => user.id === userID)) {
-      setFavourite(true)
-    } else setFavourite(false)
-  }, [isFavourite])
+  //   console.log('trackid', trackID, 'like', isFavourite)
 
-  const handleSetLike = async () => {
+  const handleSetLike = () => {
     if (isFavourite) {
-      await setUnlike(track.id)
-      setFavourite(false)
+      setUnlike(trackID)
+        .unwrap()
+        .then(() => {
+          if (isSuccessUnlike) {
+            console.log(isFavourite, userID)
+            setFavourite(false)
+          }
+        })
+        .catch((e) => console.log(e))
     } else {
-      await setLike(track.id)
-      setFavourite(true)
+      setLike(trackID)
+        .unwrap()
+        .then(() => {
+          if (isSuccessLike) {
+            console.log(isFavourite, userID)
+            setFavourite(true)
+          }
+        })
+        .catch((e) => console.log(e))
     }
   }
 

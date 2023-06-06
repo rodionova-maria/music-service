@@ -22,20 +22,21 @@ export const catalogApi = createApi({
     }),
     getPlaylistByID: builder.query({
       query: (id) => `/catalog/selection/${id}/`,
+      providesTags: ['Playlist'],
     }),
     setLike: builder.mutation({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'POST',
       }),
-      invalidatesTags: ['Tracks'],
+      invalidatesTags: ['Tracks', 'Playlist'],
     }),
     setUnlike: builder.mutation({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Tracks'],
+      invalidatesTags: ['Tracks', 'Playlist'],
     }),
   }),
 })
