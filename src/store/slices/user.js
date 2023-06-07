@@ -21,6 +21,14 @@ const userSlice = createSlice({
         isAuthenticated: true,
       }
     },
+    setAccess: (state, { payload }) => {
+      return {
+        ...state,
+        token: {
+          access: payload.token.access,
+        },
+      }
+    },
   },
 })
 
@@ -30,3 +38,4 @@ export default userSlice.reducer
 // это хук
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated
 export const selectUserID = (state) => Number(state.user.id)
+export const selectTokenRefresh = (state) => state.user.toke.refresh

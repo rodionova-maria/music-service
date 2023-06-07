@@ -4,9 +4,33 @@ import s from './App.module.scss'
 import { ThemeContext, themes } from '../contexts/theme'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark)
+
+  const dispatch = useDispatch()
+  const tokenAuthorize = useSelector(selectTokenRefresh)
+  const [tokenRefresh] = useTokenRefreshMutation()
+
+  const changeToken = async () => {
+    if (tokenAuthorize) {
+      tokenRefresh({ refresh: tokenAuthorize })
+        .unwrap()
+        .then((data) => {
+          dispatch(setAccessToken(data))
+        })
+    }
+  }
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      changeToken()
+    }, 3000)
+    return () => {
+      clearTimeout(t)
+    }
+  }, [])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', currentTheme)
