@@ -25,17 +25,17 @@ const userSlice = createSlice({
       return {
         ...state,
         token: {
-          access: payload.token.access,
+          access: payload.access,
         },
       }
     },
   },
 })
 
-export const { setLogout, setLogin } = userSlice.actions
+export const { setLogout, setLogin, setAccess } = userSlice.actions
 export default userSlice.reducer
 
 // это хук
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated
 export const selectUserID = (state) => Number(state.user.id)
-export const selectTokenRefresh = (state) => state.user.toke.refresh
+export const selectTokenRefresh = (state) => state.user.token?.refresh

@@ -4,33 +4,41 @@ import s from './App.module.scss'
 import { ThemeContext, themes } from '../contexts/theme'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectIsAuthenticated, selectTokenRefresh, setAccess } from '../store/slices/user'
+import { useTokenRefreshMutation } from '../services/user'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState(themes.dark)
-
   const dispatch = useDispatch()
-  const tokenAuthorize = useSelector(selectTokenRefresh)
+  const navigate = useNavigate()
   const [tokenRefresh] = useTokenRefreshMutation()
+  const isAuth = useSelector(selectIsAuthenticated)
+  const token = useSelector(selectTokenRefresh)
 
-  const changeToken = async () => {
-    if (tokenAuthorize) {
-      tokenRefresh({ refresh: tokenAuthorize })
+  const changeToken = () => {
+    if (isAuth) {
+      tokenRefresh({ refresh: token })
         .unwrap()
         .then((data) => {
-          dispatch(setAccessToken(data))
+          dispatch(setAccess(data.access))
+        })
+        .catch((e) => {
+          console.error(e)
+          navigate('/')
         })
     }
   }
 
   useEffect(() => {
-    const t = setTimeout(() => {
+    const t = setInterval(() => {
       changeToken()
-    }, 3000)
+    }, 1200)
     return () => {
-      clearTimeout(t)
+      clearInterval(t)
     }
-  }, [])
+  })
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', currentTheme)
