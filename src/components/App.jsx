@@ -26,6 +26,7 @@ function App() {
         })
         .catch((e) => {
           console.error(e)
+          localStorage.clear()
           navigate('/')
         })
     }
