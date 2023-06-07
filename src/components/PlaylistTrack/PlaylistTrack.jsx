@@ -25,7 +25,7 @@ function PlaylistTrack({ track }) {
   }, [])
 
   useEffect(() => {
-    setFavourite(stared_user.some((user) => Number(user.id) === Number(userID)))
+    setFavourite(stared_user.some((user) => user.id === userID))
   }, [track])
 
   const handleSetLike = () => {
