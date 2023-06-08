@@ -4,7 +4,7 @@ import s from './login.module.scss'
 import { useGetTokenMutation, useLoginMutation, useTokenRefreshMutation } from '../../services/user'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
-import { setLogin, setLogout } from '../../store/slices/user'
+import { setAccess, setLogin, setLogout, setRefresh } from '../../store/slices/user'
 import { useEffect } from 'react'
 
 function LoginPage() {
@@ -19,15 +19,9 @@ function LoginPage() {
     tokenRefresh({ refresh: string })
       .unwrap()
       .then((data) => {
-        dispatch(
-          setLogin({
-            id: localStorage.getItem('userID'),
-            token: {
-              access: data.access,
-              refresh: string,
-            },
-          })
-        )
+        dispatch(setLogin({ id: localStorage.getItem('userID') }))
+        dispatch(setRefresh({ refresh: string }))
+        dispatch(setAccess({ access: data.access }))
         navigate('/')
       })
       .catch((e) => {
@@ -66,13 +60,15 @@ function LoginPage() {
 
   const onFormSubmit = async (fields) => {
     const responseLogin = await login({ ...fields })
-
     const loginData = responseLogin.data
+    // console.log('loginData', loginData)
+    dispatch(setLogin({ id: loginData.id }))
 
     const responseToken = await getToken({ ...fields })
     const tokenData = responseToken.data
-
-    dispatch(setLogin({ ...loginData, token: tokenData }))
+    // console.log('tokenData', tokenData)
+    dispatch(setRefresh({ refresh: tokenData.refresh }))
+    dispatch(setAccess({ access: tokenData.access }))
 
     localStorage.setItem('userID', loginData.id)
     localStorage.setItem('refresh', tokenData.refresh)

@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   isAuthenticated: false,
-  username: null,
-  token: null,
   id: null,
+  access: null,
+  refresh: null,
 }
 
 const userSlice = createSlice({
@@ -15,27 +15,30 @@ const userSlice = createSlice({
     setLogin: (state, { payload }) => {
       return {
         ...state,
-        username: payload?.username,
         id: payload.id,
-        token: payload.token,
         isAuthenticated: true,
+      }
+    },
+    setRefresh: (state, { payload }) => {
+      return {
+        ...state,
+        refresh: payload.refresh,
       }
     },
     setAccess: (state, { payload }) => {
       return {
         ...state,
-        token: {
-          access: payload.access,
-        },
+        access: payload.access,
       }
     },
   },
 })
 
-export const { setLogout, setLogin, setAccess } = userSlice.actions
+export const { setLogout, setLogin, setAccess, setRefresh } = userSlice.actions
 export default userSlice.reducer
 
 // это хук
 export const selectIsAuthenticated = (state) => state.user.isAuthenticated
 export const selectUserID = (state) => Number(state.user.id)
-export const selectTokenRefresh = (state) => state.user.token?.refresh
+export const selectTokenRefresh = (state) => state.user.refresh
+export const selectTokenAccess = (state) => state.user.access

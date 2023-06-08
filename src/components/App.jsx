@@ -14,15 +14,16 @@ function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [tokenRefresh] = useTokenRefreshMutation()
-  const isAuth = useSelector(selectIsAuthenticated)
   const token = useSelector(selectTokenRefresh)
+  const isAuth = useSelector(selectIsAuthenticated)
 
   const changeToken = () => {
     if (isAuth) {
       tokenRefresh({ refresh: token })
         .unwrap()
         .then((data) => {
-          dispatch(setAccess(data.access))
+          console.log(data)
+          dispatch(setAccess({ access: data.access }))
         })
         .catch((e) => {
           console.error(e)
@@ -33,13 +34,10 @@ function App() {
   }
 
   useEffect(() => {
-    const t = setInterval(() => {
+    setInterval(() => {
       changeToken()
-    }, 1200)
-    return () => {
-      clearInterval(t)
-    }
-  })
+    }, 120000)
+  }, [])
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', currentTheme)
