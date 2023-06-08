@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     setInterval(() => {
       changeToken()
-    }, 120000)
+    }, 300000)
   }, [])
 
   useEffect(() => {
