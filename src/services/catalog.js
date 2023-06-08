@@ -5,7 +5,7 @@ export const catalogApi = createApi({
   reducerPath: 'catalogApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    tagTypes: ['Tracks'],
+    tagTypes: ['Tracks', 'Playlist'],
     prepareHeaders: (headers, { getState }) => {
       const token = getState().user.access
       //   console.log(token)
