@@ -21,7 +21,7 @@ function PlaylistPage() {
         <Centerblock data={tracksData.items} error={error} isLoading={isLoading} />
         <Sidebar />
       </div>
-      <Bar />
+      <Bar data={tracksData.items} />
       <footer className="footer"></footer>
     </>
   )

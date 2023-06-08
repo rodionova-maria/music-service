@@ -16,9 +16,9 @@ function MainPage() {
       <div className={s.main}>
         <Nav />
         <Centerblock isMain={true} data={tracksData} error={error} isLoading={isLoading} />
-        <Sidebar isMain={true} />
+        <Sidebar />
       </div>
-      <Bar />
+      <Bar data={tracksData} />
       <footer className="footer"></footer>
     </>
   )

@@ -24,7 +24,7 @@ function FavouritesPage() {
         <Centerblock data={tracksData} error={error} isLoading={isLoading} />
         <Sidebar />
       </div>
-      <Bar />
+      <Bar data={tracksData} />
       <footer className="footer"></footer>
     </>
   )

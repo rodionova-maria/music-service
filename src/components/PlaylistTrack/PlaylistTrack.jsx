@@ -3,16 +3,17 @@ import Skeleton from '../Skeleton/Skeleton'
 import s from './PlaylistTrack.module.scss'
 import icons from '../../assets/icons/sprite.svg'
 import { useSetLikeMutation, useSetUnlikeMutation } from '../../services/catalog'
-import { useSelector } from 'react-redux'
-import { selectUserID } from '../../store/slices/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectUserID, setCurrentTrackID } from '../../store/slices/user'
 
 function PlaylistTrack({ track }) {
   const [setLike] = useSetLikeMutation()
+  const dispatch = useDispatch()
   const [setUnlike] = useSetUnlikeMutation()
   const userID = useSelector(selectUserID)
   const [isLoading, setLoading] = useState(true)
 
-  const { id: trackID, name, author, album, stared_user, duration_in_seconds } = track
+  const { id: trackID, name, author, album, stared_user, duration_in_seconds, track_file } = track
   const [isFavourite, setFavourite] = useState(false)
 
   useEffect(() => {
@@ -33,6 +34,11 @@ function PlaylistTrack({ track }) {
     else setLike(trackID)
   }
 
+  const handleClickTrack = (event) => {
+    event.preventDefault()
+    dispatch(setCurrentTrackID({ id: trackID }))
+  }
+
   return (
     <div className={`${s['playlist__track']} track`}>
       <div className={s.track__title}>
@@ -49,7 +55,7 @@ function PlaylistTrack({ track }) {
           {isLoading ? (
             <Skeleton style={{ width: '100%', height: '19px' }} />
           ) : (
-            <a className={s['track__title-link']} href="http://">
+            <a className={s['track__title-link']} href={track_file} onClick={handleClickTrack}>
               {name}
             </a>
           )}
