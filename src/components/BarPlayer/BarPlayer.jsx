@@ -65,7 +65,7 @@ const BarPlayer = ({ id, tracks }) => {
     } else ind++
 
     ind = ind > tracks.length - 1 ? null : tracks[ind].id
-    // dispatch(setCurrentTrackID({ id: ind }))
+    dispatch(setCurrentTrackID({ id: ind }))
   }
 
   const handlePrev = () => {
@@ -74,7 +74,7 @@ const BarPlayer = ({ id, tracks }) => {
     } else ind--
 
     ind = ind < 0 ? null : tracks[ind].id
-    // dispatch(setCurrentTrackID({ id: ind }))
+    dispatch(setCurrentTrackID({ id: ind }))
   }
 
   return (
