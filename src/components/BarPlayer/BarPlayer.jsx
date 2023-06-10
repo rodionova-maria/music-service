@@ -32,7 +32,9 @@ const BarPlayer = ({ id, tracks }) => {
     src: playingTrack.track_file,
     autoPlay: true,
     onEnded: () => {
-      if (isRepeat) {
+      if (!isRepeat) {
+        handleNext()
+      } else {
         controls.seek(0)
         controls.play()
       }
