@@ -7,6 +7,7 @@ import TrackPlay from '../TrackPlay/TrackPlay'
 import { useState } from 'react'
 import ProgressBar from '../ProgressBar/ProgressBar'
 import Volume from '../Volume/Volume'
+import { useEffect } from 'react'
 
 const BarPlayer = ({ id, tracks }) => {
   const dispatch = useDispatch()
@@ -17,8 +18,13 @@ const BarPlayer = ({ id, tracks }) => {
 
   if (ind < 0) {
     ind = 0
-    dispatch(setCurrentTrackID({ id: tracks[ind].id }))
+    // dispatch(setCurrentTrackID({ id: tracks[ind].id }))
   }
+
+  useEffect(() => {
+    dispatch(setCurrentTrackID({ id: tracks[ind].id }))
+    console.log(tracks[ind].id)
+  }, [id, ind, tracks])
 
   const playingTrack = tracks[ind]
 
@@ -59,7 +65,7 @@ const BarPlayer = ({ id, tracks }) => {
     } else ind++
 
     ind = ind > tracks.length - 1 ? null : tracks[ind].id
-    dispatch(setCurrentTrackID({ id: ind }))
+    // dispatch(setCurrentTrackID({ id: ind }))
   }
 
   const handlePrev = () => {
@@ -68,10 +74,8 @@ const BarPlayer = ({ id, tracks }) => {
     } else ind--
 
     ind = ind < 0 ? null : tracks[ind].id
-    dispatch(setCurrentTrackID({ id: ind }))
+    // dispatch(setCurrentTrackID({ id: ind }))
   }
-
-  console.log(state)
 
   return (
     <div className={s.bar}>
