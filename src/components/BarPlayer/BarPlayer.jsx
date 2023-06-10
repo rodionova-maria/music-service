@@ -15,6 +15,11 @@ const BarPlayer = ({ id, tracks }) => {
 
   let ind = tracks.findIndex((track) => track.id === id)
 
+  if (ind < 0) {
+    ind = 0
+    dispatch(setCurrentTrackID({ id: tracks[ind].id }))
+  }
+
   const playingTrack = tracks[ind]
 
   const [audio, state, controls] = useAudio({
@@ -100,7 +105,7 @@ const BarPlayer = ({ id, tracks }) => {
             </div>
             <TrackPlay track={playingTrack} />
           </div>
-          <Volume controls={controls} />
+          <Volume state={state} controls={controls} />
         </div>
       </div>
     </div>
