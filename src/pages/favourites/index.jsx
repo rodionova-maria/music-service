@@ -11,13 +11,11 @@ function FavouritesPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
   const userID = useSelector(selectUserID)
 
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
-
   const tracksData = data.filter((track) => track.stared_user.some((user) => user.id === userID))
 
-  return (
+  return isLoading ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <div className={s.main}>
         <Nav />

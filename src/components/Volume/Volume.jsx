@@ -1,7 +1,15 @@
 import s from './Volume.module.scss'
 import icons from '../../assets/icons/sprite.svg'
+import { useEffect } from 'react'
 
-function Volume() {
+function Volume({ controls: { volume } }) {
+  const handleValueChange = (event) => {
+    volume(Number(event.target.value) / 10)
+    // console.log(Number(event.target.value) / 10)
+  }
+
+  useEffect(() => volume(0.5), [])
+
   return (
     <div className={`${s['bar__volume-block']} volume`}>
       <div className={s.volume__content}>
@@ -11,7 +19,7 @@ function Volume() {
           </svg>
         </div>
         <div className={`${s.volume__progress} _btn`}>
-          <input className={`${s['volume__progress-line']} _btn`} type="range" name="range" />
+          <input className={`${s['volume__progress-line']} _btn`} type="range" name="range" min="0" max="10" defaultValue={volume * 10} onChange={handleValueChange} />
         </div>
       </div>
     </div>
