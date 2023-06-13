@@ -11,10 +11,10 @@ function TrackPlay({ track }) {
           </svg>
         </div>
         <div className={s['track-play__author']}>
-          <a className={s['track-play__author-link']}>{track.name}</a>
+          <span className={s['track-play__author-link']}>{track.name}</span>
         </div>
         <div className={s['track-play__album']}>
-          <a className={s['track-play__album-link']}>{track.author}</a>
+          <span className={s['track-play__album-link']}>{track.author}</span>
         </div>
       </div>
     </div>

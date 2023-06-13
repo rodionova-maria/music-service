@@ -16,14 +16,9 @@ const BarPlayer = ({ id, tracks }) => {
 
   let ind = tracks.findIndex((track) => track.id === id)
 
-  if (ind < 0) {
-    ind = 0
-    // dispatch(setCurrentTrackID({ id: tracks[ind].id }))
-  }
-
   useEffect(() => {
-    dispatch(setCurrentTrackID({ id: tracks[ind].id }))
-    console.log(tracks[ind].id)
+    dispatch(setCurrentTrackID({ id: tracks[ind === -1 ? 0 : ind].id }))
+    // console.log(tracks[ind].id)
   }, [id, ind, tracks])
 
   const playingTrack = tracks[ind]

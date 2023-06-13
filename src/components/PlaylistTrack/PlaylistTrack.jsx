@@ -61,22 +61,14 @@ function PlaylistTrack({ track }) {
           )}
         </div>
       </div>
-      <div className={s.track__author}>
-        {isLoading ? (
-          <Skeleton style={{ width: '100%', height: '19px' }} />
-        ) : (
-          <a className={s['track__author-link']} href="http://">
-            {author}
-          </a>
-        )}
-      </div>
+      <div className={s.track__author}>{isLoading ? <Skeleton style={{ width: '100%', height: '19px' }} /> : <span className={s['track__author-link']}>{author}</span>}</div>
       <div className={s.track__album}>
         {isLoading ? (
           <Skeleton style={{ width: '100%', height: '19px' }} />
         ) : (
-          <a className={s['track__album-link']} href="http://">
+          <span className={s['track__album-link']} href="http://">
             {album}
-          </a>
+          </span>
         )}
       </div>
       <div className={s.track__time}>

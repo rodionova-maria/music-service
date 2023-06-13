@@ -23,4 +23,17 @@
       margin-right: 10px;
     }
   }
+  &__num {
+    background: #ad61ff;
+    border-radius: 50%;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
