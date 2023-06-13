@@ -7,7 +7,7 @@ import s from './CenterblockMain.module.scss'
 import { useSelector } from 'react-redux'
 import { selectAuthor, selectGenre, selectYear } from '../../store/slices/filter'
 
-function CenterblockMain({ data, error, isLoading }) {
+function CenterblockMain({ data, error }) {
   const byAuthor = useSelector(selectAuthor)
   const byGenre = useSelector(selectGenre)
   const byYear = useSelector(selectYear)
@@ -24,10 +24,10 @@ function CenterblockMain({ data, error, isLoading }) {
 
   switch (byYear[0]) {
     case 'новые':
-      filteredData = filteredData.filter((el) => el).sort(({ release_date: adate }, { release_date: bdate }) => new Date(adate).valueOf() - new Date(bdate).valueOf())
+      filteredData = filteredData.filter((el) => el).sort(({ release_date: adate }, { release_date: bdate }) => new Date(bdate).valueOf() - new Date(adate).valueOf())
       break
     case 'старые':
-      filteredData = filteredData.filter((el) => el).sort(({ release_date: adate }, { release_date: bdate }) => new Date(bdate).valueOf() - new Date(adate).valueOf())
+      filteredData = filteredData.filter((el) => el).sort(({ release_date: adate }, { release_date: bdate }) => new Date(adate).valueOf() - new Date(bdate).valueOf())
       break
     default:
       break
@@ -40,7 +40,7 @@ function CenterblockMain({ data, error, isLoading }) {
       <Filter data={data} />
       <div className={s.centerblock__content}>
         <PlaylistTitle />
-        <Playlist data={filteredData} error={error} isLoading={isLoading} />
+        <Playlist data={filteredData} error={error} />
       </div>
     </div>
   )

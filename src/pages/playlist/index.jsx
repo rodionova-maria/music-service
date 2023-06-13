@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import Centerblock from '../../components/Centerblock/Centerblock'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import { useGetPlaylistByIDQuery } from '../../services/catalog'
+import Loader from '../../components/Loader/Loader'
 
 function PlaylistPage() {
   const params = useParams()
@@ -13,12 +14,12 @@ function PlaylistPage() {
   const tracksData = data
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Loader />
   ) : (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock data={tracksData.items} error={error} isLoading={isLoading} />
+        <Centerblock data={tracksData.items} error={error} />
         <Sidebar />
       </div>
       <Bar data={tracksData.items} />

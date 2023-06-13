@@ -4,18 +4,19 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import s from './main.module.scss'
 import { useGetAllTracksQuery } from '../../services/catalog'
 import CenterblockMain from '../../components/CenterblockMain/CenterblockMain'
+import Loader from '../../components/Loader/Loader'
 
 function MainPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
   const tracksData = data
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Loader />
   ) : (
     <>
       <div className={s.main}>
         <Nav />
-        <CenterblockMain data={tracksData} error={error} isLoading={isLoading} />
+        <CenterblockMain data={tracksData} error={error} />
         <Sidebar />
       </div>
       <Bar data={tracksData} />

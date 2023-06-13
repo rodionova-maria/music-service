@@ -6,6 +6,7 @@ import Sidebar from '../../components/Sidebar/Sidebar'
 import { useGetAllTracksQuery } from '../../services/catalog'
 import { selectUserID } from '../../store/slices/user'
 import { useSelector } from 'react-redux'
+import Loader from '../../components/Loader/Loader'
 
 function FavouritesPage() {
   const { data, error, isLoading } = useGetAllTracksQuery()
@@ -14,12 +15,12 @@ function FavouritesPage() {
   const tracksData = data.filter((track) => track.stared_user.some((user) => user.id === userID))
 
   return isLoading ? (
-    <p>Loading...</p>
+    <Loader />
   ) : (
     <>
       <div className={s.main}>
         <Nav />
-        <Centerblock data={tracksData} error={error} isLoading={isLoading} />
+        <Centerblock data={tracksData} error={error} />
         <Sidebar />
       </div>
       <Bar data={tracksData} />
