@@ -6,14 +6,32 @@
     width: 248px;
     background: var(--bg-gray);
     border-radius: 12px;
+    padding: 30px;
+    z-index: 1;
+    margin-top: 10px;
+  }
+
+  &__wrapper {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     gap: 28px;
-    padding: 34px;
-    max-height: 305px;
     overflow: auto;
-    z-index: 1;
-    margin-top: 10px;
+    max-height: 232px;
+    padding-right: 5px;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #4b4949;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background: #fff;
+    }
   }
 }

@@ -36,16 +36,18 @@ function FilterPopup({ data, type, storeFilter }) {
 
   return (
     <div className={s.dropdown__menu}>
-      {data.map((elem) => (
-        <FilterListItem
-          key={elem}
-          text={elem}
-          isSelected={storeFilter.includes(elem)}
-          onClick={() => {
-            onClick(elem)
-          }}
-        />
-      ))}
+      <div className={s.dropdown__wrapper}>
+        {data.map((elem) => (
+          <FilterListItem
+            key={elem}
+            text={elem}
+            isSelected={storeFilter.includes(elem)}
+            onClick={() => {
+              onClick(elem)
+            }}
+          />
+        ))}
+      </div>
     </div>
   )
 }
