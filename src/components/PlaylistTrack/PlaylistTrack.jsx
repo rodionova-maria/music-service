@@ -6,24 +6,14 @@ import { useSetLikeMutation, useSetUnlikeMutation } from '../../services/catalog
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUserID, setCurrentTrackID } from '../../store/slices/user'
 
-function PlaylistTrack({ track }) {
+function PlaylistTrack({ track, isLoading }) {
   const [setLike] = useSetLikeMutation()
   const dispatch = useDispatch()
   const [setUnlike] = useSetUnlikeMutation()
   const userID = useSelector(selectUserID)
-  const [isLoading, setLoading] = useState(true)
 
   const { id: trackID, name, author, album, stared_user, duration_in_seconds, track_file } = track
   const [isFavourite, setFavourite] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setLoading(false)
-    }, 3000)
-    return () => {
-      clearTimeout(t)
-    }
-  }, [])
 
   useEffect(() => {
     setFavourite(stared_user.some((user) => user.id === userID))

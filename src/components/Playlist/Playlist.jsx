@@ -1,11 +1,16 @@
+import { useSelector } from 'react-redux'
 import PlaylistTrack from '../PlaylistTrack/PlaylistTrack'
 import s from './Playlist.module.scss'
+import { selectSearch } from '../../store/slices/filter'
 
 function Playlist({ data, error, isLoading }) {
+  const search = useSelector(selectSearch)
   const isEmptyList = !isLoading && !data?.length
 
-  if (isLoading) {
-    return <p>Loading...</p>
+  let searchData = [...data]
+
+  if (search) {
+    searchData = searchData.filter((track) => track.name.toLowerCase().includes(search.toLowerCase()))
   }
 
   if (error) {
@@ -18,9 +23,9 @@ function Playlist({ data, error, isLoading }) {
 
   return (
     <div className={`${s.content__playlist} playlist`}>
-      {data.map((track) => (
+      {searchData.map((track) => (
         <div className={s.playlist__item} key={track.id}>
-          <PlaylistTrack track={track} />
+          <PlaylistTrack track={track} isLoading={isLoading} />
         </div>
       ))}
     </div>
