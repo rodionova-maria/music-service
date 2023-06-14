@@ -5,15 +5,16 @@ import { useGetTokenMutation, useLoginMutation, useTokenRefreshMutation } from '
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { setAccess, setLogin, setLogout, setRefresh } from '../../store/slices/user'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 function LoginPage() {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
-  const [login, { isLoading: isLoadingLogin, isError: isErrorLogin }] = useLoginMutation()
+  const [login, { isLoading: isLoadingLogin }] = useLoginMutation()
   const [getToken, { isError: isErrorGetToken }] = useGetTokenMutation()
   const [tokenRefresh] = useTokenRefreshMutation()
   const dispatch = useDispatch()
+  const [authError, setAuthError] = useState('')
 
   const getAccessToken = (string) => {
     tokenRefresh({ refresh: string })
@@ -59,20 +60,27 @@ function LoginPage() {
   }, [])
 
   const onFormSubmit = async (fields) => {
-    const responseLogin = await login({ ...fields })
-    const loginData = responseLogin.data
-    // console.log('loginData', loginData)
-    dispatch(setLogin({ id: loginData.id }))
+    setAuthError('')
+    try {
+      const responseLogin = await login({ ...fields }).unwrap()
 
-    const responseToken = await getToken({ ...fields })
-    const tokenData = responseToken.data
-    // console.log('tokenData', tokenData)
-    dispatch(setRefresh({ refresh: tokenData.refresh }))
-    dispatch(setAccess({ access: tokenData.access }))
+      const loginData = responseLogin.data
+      // console.log('loginData', loginData)
+      dispatch(setLogin({ id: loginData.id }))
 
-    localStorage.setItem('userID', loginData.id)
-    localStorage.setItem('refresh', tokenData.refresh)
-    navigate('/')
+      const responseToken = await getToken({ ...fields }).unwrap()
+      const tokenData = responseToken.data
+      // console.log('tokenData', tokenData)
+      dispatch(setRefresh({ refresh: tokenData.refresh }))
+      dispatch(setAccess({ access: tokenData.access }))
+
+      localStorage.setItem('userID', loginData.id)
+      localStorage.setItem('refresh', tokenData.refresh)
+      navigate('/')
+    } catch (e) {
+      console.error(e.data.detail)
+      setAuthError(e.data.detail)
+    }
   }
 
   const handleRegistrationButtonClick = () => {
@@ -90,7 +98,7 @@ function LoginPage() {
           </div>
           <div className={s.popup__info}>
             {isLoadingLogin && <div>Данные отправлены...</div>}
-            {isErrorLogin && <div>Ошибка данных формы.</div>}
+            {<div>{authError}</div>}
             {isErrorGetToken && <div>Ошибка получения токена.</div>}
           </div>
           <div className={s.popup__buttons}>
