@@ -42,7 +42,7 @@ function RegistrationPage() {
         <img src={logo} className={s.popup__logo} alt="logo" />
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className={s.popup__fields}>
-            <input placeholder="Логин" type="text" required className={s.popup__input} {...register('username')} />
+            <input placeholder="Логин (email)" type="email" required className={s.popup__input} {...register('username')} />
             <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
             <input placeholder="Повторите пароль" type="password" required className={s.popup__input} {...register('repeatPassword')} />
           </div>
