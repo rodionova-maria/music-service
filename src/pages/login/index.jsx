@@ -67,18 +67,15 @@ function LoginPage() {
       dispatch(setLogin({ id: responseLogin.id }))
       localStorage.setItem('userID', responseLogin.id)
 
-      try {
-        const responseToken = await getToken({ ...fields })
-        const tokenData = responseToken.data
-        // console.log('tokenData', tokenData)
-        dispatch(setRefresh({ refresh: tokenData.refresh }))
-        dispatch(setAccess({ access: tokenData.access }))
-        localStorage.setItem('refresh', tokenData.refresh)
-        navigate('/')
-      } catch (e) {
-        console.error(e.data.detail)
-      }
+      const responseToken = await getToken({ ...fields })
+      const tokenData = responseToken.data
+      // console.log('tokenData', tokenData)
+      dispatch(setRefresh({ refresh: tokenData.refresh }))
+      dispatch(setAccess({ access: tokenData.access }))
+      localStorage.setItem('refresh', tokenData.refresh)
+      navigate('/')
     } catch (e) {
+      console.error(e.data.detail)
       setAuthError(e.data.detail)
     }
   }
