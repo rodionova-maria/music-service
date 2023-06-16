@@ -6,8 +6,8 @@ export const ThemeSwitcher = () => {
   const { currentTheme, toggleTheme } = useThemeContext()
 
   return (
-    <svg className={`${s['theme-switcher-svg']}`} onClick={toggleTheme}>
-      <use xlinkHref={`${icons}#theme-${currentTheme === 'light' ? 'dark' : 'light'}`} />
+    <svg className={`${s['theme-switcher-svg']}`} onClick={toggleTheme} data-testid="theme-switcher-button">
+      <use xlinkHref={`${icons}#theme-${currentTheme}`} />
     </svg>
   )
 }
