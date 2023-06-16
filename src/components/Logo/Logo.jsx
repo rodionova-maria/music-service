@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <div className={`${s.nav__logo} logo`}>
       <svg className={s.logo__image}>
-        <use xlinkHref={`${logo}#theme-${currentTheme === 'light' ? 'light' : 'dark'}`} />
+        <use xlinkHref={`${logo}#theme-${currentTheme}`} />
       </svg>
     </div>
   )
