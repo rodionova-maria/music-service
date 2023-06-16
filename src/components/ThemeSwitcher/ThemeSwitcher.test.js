@@ -7,17 +7,13 @@ describe('<ThemeSwitcher />', () => {
   it('тема меняется по клику', () => {
     customRender(<ThemeSwitcher />)
 
-    const img = screen.getByTestId('theme-switcher-img')
-    const button = screen.getByTestId('theme-switcher-button')
+    const svgElement = screen.getByTestId('theme-switcher-svg')
+    const useElement = screen.getByTestId('theme-switcher-use')
 
-    console.log(img)
+    expect(useElement.getAttribute('xlink:href')).toEqual('sprite.svg#theme-dark')
 
-    // expect(img.getAttribute('xlinkHref')).toEqual('sprite.svg#theme-dark')
+    fireEvent.click(svgElement)
 
-    fireEvent.click(button)
-
-    console.log(img)
-
-    // expect(img.getAttribute('xlinkHref')).toEqual('sprite.svg#theme-light')
+    expect(useElement.getAttribute('xlink:href')).toEqual('sprite.svg#theme-dark')
   })
 })
