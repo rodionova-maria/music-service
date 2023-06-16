@@ -7,7 +7,7 @@ export const ThemeSwitcher = () => {
 
   return (
     <svg className={`${s['theme-switcher-svg']}`} onClick={toggleTheme} data-testid="theme-switcher-button">
-      <use xlinkHref={`${icons}#theme-${currentTheme}`} />
+      <use xlinkHref={`${icons}#theme-${currentTheme}`} data-testid="theme-switcher-img" />
     </svg>
   )
 }
