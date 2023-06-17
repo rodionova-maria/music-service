@@ -2,14 +2,16 @@ import { useState } from 'react'
 import FilterButton from '../FilterButton/FilterButton'
 import FilterPopup from '../FilterPopup/FilterPopup'
 import s from './Filter.module.scss'
+import { useSelector } from 'react-redux'
+import { selectAuthor, selectGenre, selectYear } from '../../store/slices/filter'
 
-const FILTER_LIST = [
-  { type: 'author', text: 'исполнителю' },
-  { type: 'year', text: 'году выпуска' },
-  { type: 'genre', text: 'жанру' },
-]
+function Filter({ data }) {
+  const filterList = [
+    { type: 'author', text: 'исполнителю', data: [...new Set(data.map((elem) => elem.author))], storeFilter: useSelector(selectAuthor) },
+    { type: 'year', text: 'году выпуска', data: ['новые', 'старые'], storeFilter: useSelector(selectYear) },
+    { type: 'genre', text: 'жанру', data: [...new Set(data.map((elem) => elem.genre))], storeFilter: useSelector(selectGenre) },
+  ]
 
-function Filter() {
   const [filterBy, setFilterBy] = useState()
 
   const handleFilterClick = (type) => {
@@ -24,7 +26,7 @@ function Filter() {
     return filterBy === type
   }
 
-  const filterButtons = FILTER_LIST.map(({ type, text }) => (
+  const filterButtons = filterList.map(({ type, text, data, storeFilter }) => (
     <div className={s['filter__button-wrapper']} key={type}>
       <FilterButton
         type={type}
@@ -34,7 +36,8 @@ function Filter() {
           handleFilterClick(type)
         }}
       />
-      {checkIsActive(type) && <FilterPopup type={type} />}
+      {storeFilter.length ? <div className={s.filter__num}>{storeFilter.length}</div> : ''}
+      {checkIsActive(type) && <FilterPopup type={type} data={data} storeFilter={storeFilter} />}
     </div>
   ))
 

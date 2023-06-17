@@ -1,39 +1,55 @@
+import { useDispatch } from 'react-redux'
+import FilterListItem from '../FilterListItem/FilterListItem'
 import s from './FilterPopup.module.scss'
+import { delAuthor, delGenre, delYear, setAuthor, setGenre, setYear } from '../../store/slices/filter'
 
-const authors = ['Michael Jackson', 'Frank Sinatra', 'Arctic Monkeys', 'Calvin Harris', 'Zhu']
-const genres = ['Джаз', 'Блюз', 'Классика', 'Электронная', 'Рок']
-const years = ['2022', '2021', '2020', '2019', '2018']
+function FilterPopup({ data, type, storeFilter }) {
+  const dispatch = useDispatch()
 
-function FilterPopup({ type }) {
-  let list = ''
-
-  switch (type) {
-    case 'author':
-      list = authors.map((author) => (
-        <div className={s.dropdown__item} key={author}>
-          {author}
-        </div>
-      ))
-      break
-    case 'year':
-      list = years.map((year) => (
-        <div className={s.dropdown__item} key={year}>
-          {year}
-        </div>
-      ))
-      break
-    case 'genre':
-      list = genres.map((genre) => (
-        <div className={s.dropdown__item} key={genre}>
-          {genre}
-        </div>
-      ))
-      break
-    default:
-      break
+  const onClick = (text) => {
+    if (storeFilter.includes(text)) {
+      switch (type) {
+        case 'author':
+          dispatch(delAuthor(text))
+          break
+        case 'genre':
+          dispatch(delGenre(text))
+          break
+        default:
+          dispatch(delYear(text))
+          break
+      }
+    } else {
+      switch (type) {
+        case 'author':
+          dispatch(setAuthor(text))
+          break
+        case 'genre':
+          dispatch(setGenre(text))
+          break
+        default:
+          dispatch(setYear(text))
+          break
+      }
+    }
   }
 
-  return <div className={s.dropdown__menu}>{list}</div>
+  return (
+    <div className={s.dropdown__menu}>
+      <div className={s.dropdown__wrapper}>
+        {data.map((elem) => (
+          <FilterListItem
+            key={elem}
+            text={elem}
+            isSelected={storeFilter.includes(elem)}
+            onClick={() => {
+              onClick(elem)
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default FilterPopup

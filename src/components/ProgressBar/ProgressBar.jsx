@@ -1,32 +1,20 @@
-import { useState } from 'react'
-import s from './ProgressBar.module.scss'
+import { useRef } from 'react'
 import { useEffect } from 'react'
-// import { useEffect } from 'react'
+import s from './ProgressBar.module.scss'
 
-function ProgressBar({ audioRef, progressBarRef, duration }) {
-  const [timeProgress, setTimeProgress] = useState(0)
+function ProgressBar({ state: { time, duration }, controls }) {
+  const progressRef = useRef(null)
 
   useEffect(() => {
-    const t = setInterval(() => {
-      updateWidth()
-    }, 300)
-    return () => {
-      clearInterval(t)
-    }
-  })
-
-  function updateWidth() {
-    setTimeProgress(audioRef.current.currentTime)
-    progressBarRef.current.value = timeProgress || 0
-    progressBarRef.current.style.setProperty('--range-progress', `${(timeProgress / duration) * 100}%`)
-  }
+    progressRef.current.value = time || 0
+    progressRef.current.style.setProperty('--range-progress', `${(time / duration) * 100}%`)
+  }, [time, duration])
 
   const handleProgressChange = () => {
-    audioRef.current.currentTime = progressBarRef.current.value
-    updateWidth()
+    controls.seek(Number(progressRef.current.value))
   }
 
-  return <input type="range" defaultValue={timeProgress} className={s['bar__player-progress']} ref={progressBarRef} onChange={handleProgressChange} />
+  return <input type="range" min="0" max={duration} ref={progressRef} className={s['bar__player-progress']} onChange={handleProgressChange} />
 }
 
 export default ProgressBar

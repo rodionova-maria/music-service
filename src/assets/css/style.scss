@@ -75,13 +75,15 @@ body {
 }
 
 // ========== hover ========
-._btn-text:hover {
+._btn-text:hover,
+._btn-icon_active {
   border-color: #d9b6ff;
   color: #d9b6ff;
   cursor: pointer;
 }
 
-._btn-icon:hover svg {
+._btn-icon:hover svg,
+._btn-icon_active svg {
   fill: #707070;
   cursor: pointer;
 }

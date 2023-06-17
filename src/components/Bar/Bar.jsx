@@ -1,35 +1,11 @@
-import { useRef, useState } from 'react'
-import ProgressBar from '../ProgressBar/ProgressBar'
-import Player from '../Player/Player'
-import Volume from '../Volume/Volume'
-import s from './Bar.module.scss'
+import { useSelector } from 'react-redux'
+import { selectCurrentTrackID } from '../../store/slices/user'
+import BarPlayer from '../BarPlayer/BarPlayer'
 
-function Bar({ currentTrack }) {
-  currentTrack = '/music/Bobby_Marleni_-_Dropin.mp3'
+const Bar = ({ data }) => {
+  const currentTrackID = useSelector(selectCurrentTrackID)
 
-  const audioRef = useRef(null)
-  const progressBarRef = useRef(null)
-
-  const [duration, setDuration] = useState(0)
-
-  const onLoadedMetadata = () => {
-    const duration_in_seconds = audioRef.current.duration
-    setDuration(duration_in_seconds)
-    progressBarRef.current.max = duration_in_seconds
-  }
-
-  return (
-    <div className={s.bar}>
-      <div className={s.bar__content}>
-        <audio ref={audioRef} src={currentTrack} className={s.audio_hidden} onLoadedMetadata={onLoadedMetadata}></audio>
-        <ProgressBar audioRef={audioRef} progressBarRef={progressBarRef} duration={duration} />
-        <div className={s['bar__player-block']}>
-          <Player audioRef={audioRef} />
-          <Volume />
-        </div>
-      </div>
-    </div>
-  )
+  return currentTrackID ? <BarPlayer tracks={data} id={currentTrackID} /> : null
 }
 
 export default Bar

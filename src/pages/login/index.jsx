@@ -1,59 +1,110 @@
 import { useNavigate } from 'react-router-dom'
-import ButtonPrimary from '../../components/ButtonPrimary/ButtonPrimary'
-import ButtonTransparent from '../../components/ButtonTransparent/ButtonTransparent'
-import FormInput from '../../components/FormInput/FormInput'
 import logo from '../../assets/images/logo-black.png'
 import s from './login.module.scss'
-import { useEffect, useState } from 'react'
+import { useGetTokenMutation, useLoginMutation, useTokenRefreshMutation } from '../../services/user'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { setAccess, setLogin, setLogout, setRefresh } from '../../store/slices/user'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-function LoginPage({ user, setUser }) {
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
-
+function LoginPage() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { register, handleSubmit } = useForm()
+  const [login, { isLoading: isLoadingLogin }] = useLoginMutation()
+  const [getToken, { isError: isErrorGetToken }] = useGetTokenMutation()
+  const [tokenRefresh] = useTokenRefreshMutation()
+  const [authError, setAuthError] = useState('')
+
+  const getAccessToken = (string) => {
+    tokenRefresh({ refresh: string })
+      .unwrap()
+      .then((data) => {
+        dispatch(setLogin({ id: localStorage.getItem('userID') }))
+        dispatch(setRefresh({ refresh: string }))
+        dispatch(setAccess({ access: data.access }))
+        navigate('/')
+      })
+      .catch((e) => {
+        setLogout()
+        localStorage.clear()
+        console.error(e.data.detail)
+      })
+  }
+
+  //   const getAccessToken = async (string) => {
+  //     try {
+  //       const result = await tokenRefresh({ refresh: string }).unwrap()
+  //       dispatch(
+  //         setLogin({
+  //           id: localStorage.getItem('userID'),
+  //           token: {
+  //             access: result.access,
+  //             refresh: string,
+  //           },
+  //         })
+  //       )
+  //       navigate('/')
+  //     } catch (e) {
+  //       console.error(e.data.detail)
+  //       console.log(errorTokenRefresh)
+  //       setLogout()
+  //       localStorage.clear()
+  //     }
+  //   }
 
   useEffect(() => {
-    if (user.login) {
-      console.log(user, password)
-      navigate('/')
-      return
-    }
+    const storageRefresh = localStorage.getItem('refresh')
+    if (!storageRefresh) return
+    getAccessToken(storageRefresh)
   }, [])
 
-  const handleLoginChange = (event) => {
-    setLogin(event.target.value)
+  const onFormSubmit = async (fields) => {
+    setAuthError('')
+    try {
+      const responseLogin = await login({ ...fields }).unwrap()
+      dispatch(setLogin({ id: responseLogin.id }))
+      localStorage.setItem('userID', responseLogin.id)
+
+      const responseToken = await getToken({ ...fields })
+      const tokenData = responseToken.data
+      // console.log('tokenData', tokenData)
+      dispatch(setRefresh({ refresh: tokenData.refresh }))
+      dispatch(setAccess({ access: tokenData.access }))
+      localStorage.setItem('refresh', tokenData.refresh)
+      navigate('/')
+    } catch (e) {
+      console.error(e.data.detail)
+      setAuthError(e.data.detail)
+    }
   }
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
-  }
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault()
-    // console.log(login, password)
-    setUser('login', login, {
-      path: '/',
-    })
-    navigate('/', { replace: true })
-  }
-
-  const handleRegistrationButtonClick = (event) => {
-    event.preventDefault()
-    navigate('/registration', { replace: true })
+  const handleRegistrationButtonClick = () => {
+    navigate('/registration')
   }
 
   return (
     <div className={s.popup}>
       <div className={s.popup__wrapper}>
         <img src={logo} className={s.popup__logo} alt="logo" />
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleSubmit(onFormSubmit)}>
           <div className={s.popup__fields}>
-            <FormInput type="text" placeholder="Логин" onChange={handleLoginChange} name="login" />
-            <FormInput type="password" placeholder="Пароль" onChange={handlePasswordChange} name="password" />
+            <input placeholder="Логин (email)" type="email" required className={s.popup__input} {...register('email')} />
+            <input placeholder="Пароль" type="password" required className={s.popup__input} {...register('password')} />
+          </div>
+          <div className={s.popup__info}>
+            {isLoadingLogin && <div>Данные отправлены...</div>}
+            <div>{authError}</div>
+            {isErrorGetToken && <div>Ошибка получения токена.</div>}
           </div>
           <div className={s.popup__buttons}>
-            <ButtonPrimary value="Войти" />
-            <ButtonTransparent value="Зарегистрироваться" onClick={handleRegistrationButtonClick} />
+            <button type="submit" className={s['button-primary']}>
+              Войти
+            </button>
+            <button type="button" onClick={handleRegistrationButtonClick} className={s['button-transparent']}>
+              Зарегистрироваться
+            </button>
           </div>
         </form>
       </div>

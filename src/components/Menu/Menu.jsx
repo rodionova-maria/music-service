@@ -1,15 +1,16 @@
+import { useDispatch } from 'react-redux'
 import MenuItem from '../MenuItem/MenuItem'
 import { ThemeSwitcher } from '../ThemeSwitcher/ThemeSwitcher'
 import s from './Menu.module.scss'
+import { setLogout } from '../../store/slices/user'
 
 function Menu() {
-  //   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  //   const handleLogout = (event) => {
-  //     event.preventDefault()
-  //     removeCookie('user')
-  //     navigate('/login', { replace: true })
-  //   }
+  const onLogout = () => {
+    dispatch(setLogout())
+    localStorage.clear()
+  }
 
   return (
     <>
@@ -17,7 +18,7 @@ function Menu() {
         <ul className={s.menu__list}>
           <MenuItem link="/" text="Главное" />
           <MenuItem link="/favourites" text="Мой плейлист" />
-          <MenuItem link="/login" text="Выйти" />
+          <MenuItem onClick={() => onLogout()} text="Выйти" />
         </ul>
       </div>
       <ThemeSwitcher />
