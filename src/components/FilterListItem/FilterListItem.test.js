@@ -1,6 +1,5 @@
 import { screen, render, fireEvent } from '@testing-library/react'
 import FilterListItem from './FilterListItem'
-import s from './FilterListItem.module.scss'
 import '@testing-library/jest-dom'
 
 describe('<FilterListItem />', () => {
@@ -15,6 +14,6 @@ describe('<FilterListItem />', () => {
   it('Выбранный пункт имеет класс активности', () => {
     render(<FilterListItem text="Filter List Item" isSelected="true" />)
 
-    expect(screen.getByText('Filter List Item')).toHaveClass(s.dropdown__item_selected)
+    expect(screen.getByText('Filter List Item')).toHaveClass('dropdown__item_selected')
   })
 })
